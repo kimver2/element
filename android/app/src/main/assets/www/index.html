@@ -5,9 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="theme-color" content="#0a0e17">
   <meta name="description" content="초등학교 5학년을 위한 신나는 118개 원소 & 8주기 미래 원소 주기율표 탐험 앱">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>원소 탐험대 : 118 원소 & 미지의 세계</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="css/style.css?v=2.2.0">
+  <link rel="manifest" href="manifest.json?v=2.2.0">
 </head>
 <body>
 
@@ -162,9 +165,13 @@
     <!-- 4. ⚔️ 원소 카드 스탯 배틀 -->
     <section id="view-battle" class="view-section">
       <div class="future-hero" style="background: linear-gradient(135deg, rgba(232, 67, 147, 0.15) 0%, rgba(24, 34, 52, 0.8) 100%); border-color: rgba(232, 67, 147, 0.3);">
-        <div class="future-hero-title" style="color:#ff6b81;">⚔️ 원소 카드 스탯 배틀 (Top Trumps)</div>
+        <div class="future-hero-title" style="color:#ff6b81; display:flex; align-items:center; gap:8px;">
+          <span>⚔️ 원소 카드 스탯 배틀 (Top Trumps)</span>
+          <span style="font-size:0.75rem; background:rgba(46,213,115,0.2); border:1px solid #2ed573; color:#2ed573; padding:2px 8px; border-radius:10px; font-weight:800;">v2.2 밸런스 패치 적용</span>
+        </div>
         <div class="future-hero-desc">
-          녹는점, 밀도, 반응성, 희귀도! 승리할 것 같은 나의 원소 스탯을 골라 라이벌 AI 카드를 쓰러뜨려 보세요!
+          🔥 고온 내열(높을수록 승리) vs 🚀 가벼움(밀도 낮을수록 승리!) vs 💥 반응성 vs 💎 희귀도!<br>
+          어떤 카드를 뽑더라도 승리할 수 있는 나만의 필살 스탯을 찾아 라이벌 AI 카드를 쓰러뜨려 보세요!
         </div>
       </div>
 
@@ -352,16 +359,16 @@
     </div>
   </div>
 
-  <!-- 자바스크립트 모듈 로드 -->
-  <script src="js/elements-data.js"></script>
-  <script src="js/temperature-slider.js"></script>
-  <script src="js/atom-model.js"></script>
-  <script src="js/molecule-lab.js"></script>
-  <script src="js/card-battle.js"></script>
-  <script src="js/achievements.js"></script>
-  <script src="js/periodic-table.js"></script>
-  <script src="js/future-lab.js"></script>
-  <script src="js/quiz.js"></script>
-  <script src="js/app.js"></script>
+  <!-- 자바스크립트 모듈 로드 (캐시 버스팅 적용) -->
+  <script src="js/elements-data.js?v=2.2.0"></script>
+  <script src="js/temperature-slider.js?v=2.2.0"></script>
+  <script src="js/atom-model.js?v=2.2.0"></script>
+  <script src="js/molecule-lab.js?v=2.2.0"></script>
+  <script src="js/card-battle.js?v=2.2.0"></script>
+  <script src="js/achievements.js?v=2.2.0"></script>
+  <script src="js/periodic-table.js?v=2.2.0"></script>
+  <script src="js/future-lab.js?v=2.2.0"></script>
+  <script src="js/quiz.js?v=2.2.0"></script>
+  <script src="js/app.js?v=2.2.0"></script>
 </body>
 </html>
