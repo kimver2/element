@@ -1,4 +1,4 @@
-// ⚔️ 원소 카드 스탯 배틀 (밸런스 매칭 & 양방향 전략 배틀 시스템)
+// ⚔️ 원소 카드 스탯 배틀 (전기 전도도 스탯 & 자유로운 카드 교체 시스템 - v2.3)
 
 (function() {
   let playerCard = null;
@@ -7,69 +7,94 @@
   let battleStreak = 0;
   let isBattling = false;
 
-  // 화학 반응성 추정 점수 (1~100)
-  function getReactivity(el) {
-    if (el.category === 'noble-gas') return 8;
-    if (el.category === 'alkali-metal') return 95 - (7 - el.period) * 4;
-    if (el.category === 'halogen') return 92 - (el.period - 2) * 5;
-    if (el.category === 'alkaline-earth') return 70 + (el.period * 2);
-    if (el.isRadioactive) return 85;
-    if (['Au', 'Pt', 'Ir'].includes(el.symbol)) return 15; // 반응성 매우 낮음
-    return 35 + (el.num % 45);
+  // 1. ⚡ 전기 전도도 파워 (1~100) - 원자 번호와 완전히 무관한 고유 스탯!
+  // 은(100), 구리(97), 금(76), 알루미늄(65), 칼슘(35), 철(18), 백금(16), 납(8), 비금속/기체(0~2)
+  function getConductivity(el) {
+    const sym = el.symbol;
+    if (sym === 'Ag') return 100; // 은 1등
+    if (sym === 'Cu') return 97;  // 구리 2등
+    if (sym === 'Au') return 76;  // 금 3등
+    if (sym === 'Al') return 65;  // 알루미늄 4등
+    if (sym === 'Ca') return 35;
+    if (sym === 'Mg') return 38;
+    if (sym === 'Na') return 32;
+    if (sym === 'Zn') return 28;
+    if (sym === 'Ni') return 24;
+    if (sym === 'Fe') return 18;  // 철
+    if (sym === 'Pt') return 16;  // 백금
+    if (sym === 'Sn') return 15;  // 주석
+    if (sym === 'Pb') return 8;   // 납
+    if (sym === 'Ti') return 4;   // 타이타늄
+    if (sym === 'Hg') return 2;   // 수은
+
+    // 일반 분류별 추정
+    if (el.category === 'transition-metal') return 20 + (el.num % 25);
+    if (el.category === 'post-transition') return 15 + (el.num % 15);
+    if (el.category === 'alkali-metal') return 25 + (el.num % 10);
+    if (el.category === 'alkaline-earth') return 22 + (el.num % 10);
+    if (el.category === 'metalloid') return 5 + (el.num % 6);
+    // 비금속/기체는 전기 전도도 거의 0
+    return 1;
   }
 
-  // 희귀도/가치 추정 점수 (1~100)
+  // 2. 💥 화학 반응 폭발력 (1~100) - 알칼리/할로겐 최강, 금/백금/비활성기체 최하
+  function getReactivity(el) {
+    if (el.category === 'noble-gas') return 5;
+    if (['Au', 'Pt', 'Ir'].includes(el.symbol)) return 12; // 금, 백금은 반응 안 함
+    if (el.category === 'alkali-metal') return 95 - (7 - el.period) * 4; // 프랑슘, 세슘, 나트륨 최강
+    if (el.category === 'halogen') return 94 - (el.period - 2) * 5;      // 플루오린, 염소 최강
+    if (el.category === 'alkaline-earth') return 72 + (el.period * 2);
+    if (el.isRadioactive) return 86;
+    return 30 + (el.num % 40);
+  }
+
+  // 3. 💎 희귀도 및 가치 (1~100) - 캘리포늄, 금, 백금, 초중원소 최강
   function getRarity(el) {
     if (el.num > 110) return 99;
-    if ([78, 79, 45, 46, 44, 98].includes(el.num)) return 95; // 금, 백금, 캘리포늄 등
-    if (el.isRadioactive) return 85;
-    if (el.category === 'lanthanide') return 78;
-    if ([1, 6, 8, 26, 13, 14, 20].includes(el.num)) return 15; // 수소, 탄소, 산소, 철, 알루미늄 등 흔함
-    return 25 + (el.num % 50);
+    if ([78, 79, 45, 46, 44, 98].includes(el.num)) return 96; // 금, 백금, 캘리포늄 등
+    if (el.isRadioactive) return 88;
+    if (el.category === 'lanthanide') return 80;
+    if ([1, 6, 8, 26, 13, 14, 20].includes(el.num)) return 15; // 수소, 산소, 철, 알루미늄 등 흔함
+    return 28 + (el.num % 48);
   }
 
-  // 속성 상성 계산 (가위바위보 보너스 +20%)
+  // 4. 🔥 고온 내열 (녹는점 ℃)
+  function getMeltingPoint(el) {
+    return el.meltingPoint !== undefined ? el.meltingPoint : 1000;
+  }
+
+  // 속성 상성 가위바위보 (+25% 파워)
   function getAffinityMultiplier(attacker, defender) {
     const aCat = attacker.category;
     const dCat = defender.category;
-
-    // 1. 활성 원소(알칼리/할로겐) -> 비활성 기체 공략
     if ((aCat === 'alkali-metal' || aCat === 'halogen') && dCat === 'noble-gas') return 1.25;
-    // 2. 비활성 기체 -> 방사성/초중원소 안정화 방어
     if (aCat === 'noble-gas' && (defender.isRadioactive || defender.num > 100)) return 1.25;
-    // 3. 방사성 원소 -> 일반 전이 금속 압도
     if (attacker.isRadioactive && dCat === 'transition-metal') return 1.25;
-    // 4. 전이 금속 -> 반응성 비금속/알칼리 침식 방어
     if (aCat === 'transition-metal' && (dCat === 'alkali-metal' || dCat === 'halogen')) return 1.25;
-
     return 1.0;
   }
 
-  // 특정 스탯에서 A가 B를 이기는지 판별
-  // mp: 높을수록 승리 (고온 내열)
-  // lightness: 밀도가 낮을수록 승리! (수소, 헬륨, 탄소의 필살기)
-  // react: 높을수록 승리 (화학 반응성)
-  // rarity: 높을수록 승리 (희귀도)
+  // 특정 스탯 승패 비교 (원자 번호와 상관없이 각 스탯 고유의 규칙 적용)
   function compareStat(statKey, cardA, cardB) {
-    const aMp = cardA.meltingPoint !== undefined ? cardA.meltingPoint : 1000;
-    const bMp = cardB.meltingPoint !== undefined ? cardB.meltingPoint : 1000;
-    const aDens = cardA.density !== undefined ? cardA.density : 5.0;
-    const bDens = cardB.density !== undefined ? cardB.density : 5.0;
+    const aMp = getMeltingPoint(cardA);
+    const bMp = getMeltingPoint(cardB);
+    const aElec = getConductivity(cardA);
+    const bElec = getConductivity(cardB);
     const aReact = getReactivity(cardA);
     const bReact = getReactivity(cardB);
     const aRarity = getRarity(cardA);
     const bRarity = getRarity(cardB);
 
     if (statKey === 'mp') return aMp > bMp ? 1 : aMp < bMp ? -1 : 0;
-    if (statKey === 'lightness') return aDens < bDens ? 1 : aDens > bDens ? -1 : 0; // 가벼울수록 승리!
+    if (statKey === 'elec') return aElec > bElec ? 1 : aElec < bElec ? -1 : 0;
     if (statKey === 'react') return aReact > bReact ? 1 : aReact < bReact ? -1 : 0;
     if (statKey === 'rarity') return aRarity > bRarity ? 1 : aRarity < bRarity ? -1 : 0;
     return 0;
   }
 
-  // 밸런스 검증: 플레이어가 이길 수 있는 스탯과 라이벌이 이길 수 있는 스탯이 각각 최소 1개 이상 존재해야 함!
+  // 밸런스 검증: 플레이어가 이길 수 있는 스탯과 라이벌이 이길 수 있는 스탯이 각각 1개 이상 존재!
   function isMatchBalanced(cPlayer, cRival) {
-    const stats = ['mp', 'lightness', 'react', 'rarity'];
+    const stats = ['mp', 'elec', 'react', 'rarity'];
     let playerWins = 0;
     let rivalWins = 0;
 
@@ -79,7 +104,6 @@
       else if (cmp < 0) rivalWins++;
     });
 
-    // 플레이어가 4개 다 이기거나(무조건 승리), 라이벌이 4개 다 이기는(무조건 패배) 조합은 탈락!
     return playerWins >= 1 && rivalWins >= 1;
   }
 
@@ -120,8 +144,8 @@
     const container = document.getElementById(containerId);
     if (!container) return;
 
-    const mp = el.meltingPoint !== undefined ? el.meltingPoint : 1000;
-    const dens = el.density !== undefined ? el.density : 5.0;
+    const mp = getMeltingPoint(el);
+    const elec = getConductivity(el);
     const react = getReactivity(el);
     const rarity = getRarity(el);
     const rarityLabel = el.rarity || 'COMMON';
@@ -145,24 +169,27 @@
         ${advantageTag}
         
         <div class="bcard-stats">
+          <!-- 스탯 1: 녹는점 -->
           <div class="bstat-row" data-stat="mp">
             <span class="stat-name">🔥 고온 내열 (녹는점)</span>
-            <span class="stat-rule">[높을수록 승리]</span>
             <span class="stat-val">${hideStats ? '???' : mp + ' ℃'}</span>
           </div>
-          <div class="bstat-row" data-stat="lightness">
-            <span class="stat-name">🚀 가벼움 (민첩성)</span>
-            <span class="stat-rule" style="color:var(--accent-cyan); font-weight:700;">[가벼울수록 승리!]</span>
-            <span class="stat-val">${hideStats ? '???' : dens + ' g/cm³'}</span>
+
+          <!-- 스탯 2: 전기 전도도 (밀도 대신 원자번호와 무관한 전기 파워!) -->
+          <div class="bstat-row" data-stat="elec">
+            <span class="stat-name">⚡ 전기 전도 파워</span>
+            <span class="stat-val">${hideStats ? '???' : elec + ' 점'}</span>
           </div>
+
+          <!-- 스탯 3: 화학 반응성 -->
           <div class="bstat-row" data-stat="react">
-            <span class="stat-name">💥 화학 반응성</span>
-            <span class="stat-rule">[높을수록 승리]</span>
+            <span class="stat-name">💥 반응 폭발력</span>
             <span class="stat-val">${hideStats ? '???' : react + ' 점'}</span>
           </div>
+
+          <!-- 스탯 4: 희귀도 -->
           <div class="bstat-row" data-stat="rarity">
             <span class="stat-name">💎 희귀도 가치</span>
-            <span class="stat-rule">[높을수록 승리]</span>
             <span class="stat-val">${hideStats ? '???' : rarity + ' 점'}</span>
           </div>
         </div>
@@ -170,38 +197,36 @@
     `;
   }
 
-  // 밸런스가 잡힌 카드 2장 뽑기 (무조건 이기거나 무조건 지는 조합 원천 차단!)
-  function drawNewCards() {
+  // 균형 잡힌 카드 페어 세팅
+  function setupMatchup(keepPlayer = false, keepRival = false) {
     isBattling = false;
-    playerCard = pickRandomElement();
 
-    // 밸런스가 맞는 라이벌 카드가 나올 때까지 탐색 (최대 100회)
-    let foundRival = null;
-    for (let i = 0; i < 100; i++) {
-      const candidate = pickRandomElement();
-      if (candidate.num !== playerCard.num && isMatchBalanced(playerCard, candidate)) {
-        foundRival = candidate;
-        break;
-      }
-    }
-
-    if (!foundRival) {
-      // 혹시 못 찾을 경우 다른 플레이어 카드로 다시 시도
+    if (!keepPlayer || !playerCard) {
       playerCard = pickRandomElement();
-      foundRival = pickRandomElement();
     }
-    rivalCard = foundRival;
+
+    if (!keepRival || !rivalCard) {
+      let found = null;
+      for (let i = 0; i < 100; i++) {
+        const candidate = pickRandomElement();
+        if (candidate.num !== playerCard.num && isMatchBalanced(playerCard, candidate)) {
+          found = candidate;
+          break;
+        }
+      }
+      rivalCard = found || pickRandomElement();
+    }
 
     renderBattleCard(playerCard, 'player-card-container', false, rivalCard);
-    renderBattleCard(rivalCard, 'rival-card-container', true, playerCard); // 라이벌 스탯은 물음표
+    renderBattleCard(rivalCard, 'rival-card-container', true, playerCard);
 
     const resultBox = document.getElementById('battle-result-msg');
     if (resultBox) {
-      resultBox.innerHTML = `👉 나의 강점 스탯을 선택하세요! <b style="color:var(--accent-gold);">(💡 가벼움 승부는 밀도가 낮을수록 승리합니다!)</b>`;
+      resultBox.innerHTML = `👉 승리할 것 같은 나의 스탯을 터치해 대결을 시작하세요!`;
       resultBox.className = 'battle-result-bar normal';
     }
 
-    // 플레이어 스탯 행 클릭 이벤트 바인딩
+    // 플레이어 스탯 클릭 이벤트 바인딩
     const statRows = document.querySelectorAll('#player-card-container .bstat-row');
     statRows.forEach(row => {
       row.style.cursor = 'pointer';
@@ -212,22 +237,21 @@
     });
   }
 
+  // 대결 실행 (카드를 골랐을 때)
   function executeBattle(statKey) {
     isBattling = true;
 
     // 라이벌 스탯 전체 공개
     renderBattleCard(rivalCard, 'rival-card-container', false, playerCard);
 
-    // 상성 배수
     const pMult = getAffinityMultiplier(playerCard, rivalCard);
     const rMult = getAffinityMultiplier(rivalCard, playerCard);
 
-    const pMp = (playerCard.meltingPoint !== undefined ? playerCard.meltingPoint : 1000) * (pMult > 1 ? 1.15 : 1.0);
-    const rMp = (rivalCard.meltingPoint !== undefined ? rivalCard.meltingPoint : 1000) * (rMult > 1 ? 1.15 : 1.0);
+    const pMp = Math.round(getMeltingPoint(playerCard) * (pMult > 1 ? 1.15 : 1.0));
+    const rMp = Math.round(getMeltingPoint(rivalCard) * (rMult > 1 ? 1.15 : 1.0));
 
-    // 가벼움: 밀도에 상성 보너스를 주어 가벼운 효과 증대
-    const pDens = (playerCard.density !== undefined ? playerCard.density : 5.0) / (pMult > 1 ? 1.2 : 1.0);
-    const rDens = (rivalCard.density !== undefined ? rivalCard.density : 5.0) / (rMult > 1 ? 1.2 : 1.0);
+    const pElec = Math.round(getConductivity(playerCard) * pMult);
+    const rElec = Math.round(getConductivity(rivalCard) * rMult);
 
     const pReact = Math.round(getReactivity(playerCard) * pMult);
     const rReact = Math.round(getReactivity(rivalCard) * rMult);
@@ -242,20 +266,19 @@
     let rDisplayVal = '';
 
     if (statKey === 'mp') {
-      statLabel = '고온 내열 (녹는점)';
+      statLabel = '고온 내열';
       isWin = pMp > rMp;
       isDraw = pMp === rMp;
-      pDisplayVal = `${Math.round(pMp)}℃`;
-      rDisplayVal = `${Math.round(rMp)}℃`;
-    } else if (statKey === 'lightness') {
-      statLabel = '가벼움 (민첩성)';
-      // 🚀 가벼움 승부는 밀도가 낮을수록 승리!
-      isWin = pDens < rDens;
-      isDraw = pDens === rDens;
-      pDisplayVal = `${pDens.toFixed(3)}g/cm³ (더 가벼움!)`;
-      rDisplayVal = `${rDens.toFixed(3)}g/cm³`;
+      pDisplayVal = `${pMp}℃`;
+      rDisplayVal = `${rMp}℃`;
+    } else if (statKey === 'elec') {
+      statLabel = '전기 전도 파워';
+      isWin = pElec > rElec;
+      isDraw = pElec === rElec;
+      pDisplayVal = `${pElec}점`;
+      rDisplayVal = `${rElec}점`;
     } else if (statKey === 'react') {
-      statLabel = '화학 반응성';
+      statLabel = '반응 폭발력';
       isWin = pReact > rReact;
       isDraw = pReact === rReact;
       pDisplayVal = `${pReact}점`;
@@ -273,32 +296,58 @@
     const resultBox = document.getElementById('battle-result-msg');
     const scoreBadge = document.getElementById('battle-score-badge');
 
+    let resultHtml = '';
     if (isDraw) {
       resultBox.className = 'battle-result-bar draw';
-      resultBox.innerHTML = `🤝 무승부! [${statLabel}] 둘의 수치가 호각입니다! (${pDisplayVal} vs ${rDisplayVal})`;
+      resultHtml = `🤝 무승부! [${statLabel}] 대결에서 호각입니다! (${pDisplayVal} vs ${rDisplayVal})`;
     } else if (isWin) {
       battleWins++;
       battleStreak++;
       resultBox.className = 'battle-result-bar win';
-      resultBox.innerHTML = `🏆 승리! 나의 <b>${playerCard.nameKo}</b>(${pDisplayVal})이(가) 라이벌의 <b>${rivalCard.nameKo}</b>(${rDisplayVal})을(를) [${statLabel}] 대결에서 제압했습니다!`;
+      resultHtml = `🏆 승리! 나의 <b>${playerCard.nameKo}</b>(${pDisplayVal})이(가) 라이벌 <b>${rivalCard.nameKo}</b>(${rDisplayVal})을(를) [${statLabel}]에서 꺾었습니다!`;
     } else {
       battleStreak = 0;
       resultBox.className = 'battle-result-bar lose';
-      resultBox.innerHTML = `😢 패배! 라이벌의 <b>${rivalCard.nameKo}</b>(${rDisplayVal})이(가) [${statLabel}] 대결에서 더 우세했습니다! (나: ${pDisplayVal})`;
+      resultHtml = `😢 패배! 라이벌 <b>${rivalCard.nameKo}</b>(${rDisplayVal})의 [${statLabel}]이 더 강했습니다! (나: ${pDisplayVal})`;
     }
+
+    // 🎴 카드를 골랐을 때 다음 카드를 손쉽게 뽑을 수 있는 액션 버튼들 즉시 노출!
+    resultBox.innerHTML = `
+      <div style="margin-bottom:12px;">${resultHtml}</div>
+      <div class="next-action-row">
+        <button id="next-match-btn" class="fire-btn" style="padding:9px 18px; font-size:0.95rem; background:linear-gradient(135deg, #00d2ff, #0072ff);">
+          🎴 다음 카드 대결하기! ➔
+        </button>
+        <button id="reroll-rival-btn" class="modal-nav-btn" style="padding:8px 14px; font-size:0.85rem;">
+          👥 라이벌만 바꾸기 (내 카드 유지)
+        </button>
+        <button id="reroll-player-btn" class="modal-nav-btn" style="padding:8px 14px; font-size:0.85rem;">
+          🔁 내 카드만 바꾸기
+        </button>
+      </div>
+    `;
+
+    // 액션 버튼 이벤트 바인딩
+    document.getElementById('next-match-btn').addEventListener('click', () => setupMatchup(false, false));
+    document.getElementById('reroll-rival-btn').addEventListener('click', () => setupMatchup(true, false));
+    document.getElementById('reroll-player-btn').addEventListener('click', () => setupMatchup(false, true));
 
     if (scoreBadge) {
       scoreBadge.innerText = `승리: ${battleWins}승 | 연속: ${battleStreak}콤보`;
     }
+
+    resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
   window.initCardBattle = function() {
-    drawNewCards();
+    setupMatchup(false, false);
+
+    // 상단 새 카드 뽑기 버튼 바인딩
     const newDrawBtn = document.getElementById('battle-new-draw-btn');
     if (newDrawBtn) {
       const newBtn = newDrawBtn.cloneNode(true);
       newDrawBtn.parentNode.replaceChild(newBtn, newDrawBtn);
-      newBtn.addEventListener('click', drawNewCards);
+      newBtn.addEventListener('click', () => setupMatchup(false, false));
     }
   };
 })();

@@ -1162,3 +1162,13 @@ body {
   text-align: center;
   margin-top: 4px;
 }
+
+/* ⚔️ 카드 배틀 대결 후 액션 버튼 행 */
+.next-action-row {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
