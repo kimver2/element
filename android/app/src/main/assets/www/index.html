@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0a0e17">
+  <meta name="description" content="초등학교 5학년을 위한 신나는 118개 원소 & 8주기 미래 원소 주기율표 탐험 앱">
+  <title>원소 탐험대 : 118 원소 & 미지의 세계</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+
+  <!-- 상단 헤더 -->
+  <header class="app-header">
+    <div class="header-top">
+      <div class="app-branding">
+        <div class="app-logo">⚛️</div>
+        <div>
+          <h1 class="app-title">원소 탐험대 <span class="title-badge">118+미래원소</span></h1>
+          <p class="app-subtitle">초등 5학년을 위한 화학 & 주기율표 탐험 도감</p>
+        </div>
+      </div>
+
+      <!-- 상단 도감 완성률 바 -->
+      <div class="explorer-progress-box">
+        <div class="progress-info-row">
+          <span id="explorer-progress-label">도감 완성률: 0 / 118 (0%)</span>
+          <span class="progress-trophy">🏆</span>
+        </div>
+        <div class="progress-track">
+          <div id="explorer-progress-fill" class="progress-fill" style="width: 0%;"></div>
+        </div>
+      </div>
+
+      <!-- 뷰 모드 탭 7개 -->
+      <nav class="nav-tabs">
+        <button class="nav-tab-btn active" data-view="view-table">🏛️ 주기율표</button>
+        <button class="nav-tab-btn" data-view="view-cards">🃏 카드 도감</button>
+        <button class="nav-tab-btn" data-view="view-molecule">🧪 분자 실험실</button>
+        <button class="nav-tab-btn" data-view="view-battle">⚔️ 카드 배틀</button>
+        <button class="nav-tab-btn" data-view="view-future">🚀 미래 연구소</button>
+        <button class="nav-tab-btn" data-view="view-quiz">🎯 원소 퀴즈</button>
+        <button class="nav-tab-btn" data-view="view-achievements">🏆 나의 업적</button>
+      </nav>
+    </div>
+
+    <!-- 검색 & 필터 바 (테이블/도감 뷰에서만 노출) -->
+    <div class="filter-bar">
+      <div class="search-box-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="search-input" class="search-input" placeholder="원소 번호(1~118), 기호(H, Fe, Og), 한글(수소, 금), 영문 검색...">
+      </div>
+
+      <div class="category-chips">
+        <button class="chip-btn active" data-cat="all">전체 원소</button>
+        <button class="chip-btn" data-cat="alkali-metal"><span class="dot" style="background:var(--cat-alkali-metal)"></span>알칼리 금속</button>
+        <button class="chip-btn" data-cat="alkaline-earth"><span class="dot" style="background:var(--cat-alkaline-earth)"></span>알칼리 토금속</button>
+        <button class="chip-btn" data-cat="transition-metal"><span class="dot" style="background:var(--cat-transition-metal)"></span>전이 금속</button>
+        <button class="chip-btn" data-cat="post-transition"><span class="dot" style="background:var(--cat-post-transition)"></span>후전이 금속</button>
+        <button class="chip-btn" data-cat="metalloid"><span class="dot" style="background:var(--cat-metalloid)"></span>준금속</button>
+        <button class="chip-btn" data-cat="nonmetal"><span class="dot" style="background:var(--cat-nonmetal)"></span>반응성 비금속</button>
+        <button class="chip-btn" data-cat="halogen"><span class="dot" style="background:var(--cat-halogen)"></span>할로겐</button>
+        <button class="chip-btn" data-cat="noble-gas"><span class="dot" style="background:var(--cat-noble-gas)"></span>비활성 기체</button>
+        <button class="chip-btn" data-cat="lanthanide"><span class="dot" style="background:var(--cat-lanthanide)"></span>란타넘족</button>
+        <button class="chip-btn" data-cat="actinide"><span class="dot" style="background:var(--cat-actinide)"></span>악티늄족</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 메인 뷰 컨텐츠 영역 -->
+  <main class="main-content">
+
+    <!-- 1. 주기율표 뷰 (온도 슬라이더 포함) -->
+    <section id="view-table" class="view-section active">
+      <!-- 🌡️ 온도 조절기 바 -->
+      <div class="temp-control-panel">
+        <div class="temp-header">
+          <span class="temp-title">🌡️ 실시간 온도 조절기: <b id="temp-display-val" style="color:var(--accent-gold);">+25 ℃</b></span>
+          <span class="temp-legend">🪨 고체 | 💧 액체 | 💨 기체</span>
+        </div>
+        <div class="temp-slider-wrap">
+          <input type="range" id="temp-slider-input" min="-273" max="5500" value="25" step="5" class="temp-slider">
+        </div>
+        <div class="temp-presets-row">
+          <button class="temp-preset-btn" data-temp="-273">🧊 절대영도 (-273℃)</button>
+          <button class="temp-preset-btn" data-temp="-20">❄️ 겨울 (-20℃)</button>
+          <button class="temp-preset-btn active" data-temp="25">🏠 상온 (25℃)</button>
+          <button class="temp-preset-btn" data-temp="37">🍫 체온 (37℃: 갈륨 녹음!)</button>
+          <button class="temp-preset-btn" data-temp="100">💧 물 끓는점 (100℃)</button>
+          <button class="temp-preset-btn" data-temp="1064">🪙 금 녹는점 (1064℃)</button>
+          <button class="temp-preset-btn" data-temp="5500">☀️ 태양 표면 (5500℃: 텅스텐만 버팀!)</button>
+        </div>
+      </div>
+
+      <div class="table-scroll-container">
+        <div id="periodic-grid" class="periodic-table-grid">
+          <!-- JS에서 1~118번 원소 타일 자동 렌더링 -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. 카드 도감 뷰 -->
+    <section id="view-cards" class="view-section">
+      <div id="cards-grid" class="cards-grid">
+        <!-- JS 렌더링 -->
+      </div>
+    </section>
+
+    <!-- 3. 🧪 원소 연금술 분자 실험실 -->
+    <section id="view-molecule" class="view-section">
+      <div class="future-hero" style="background: linear-gradient(135deg, rgba(0, 210, 255, 0.15) 0%, rgba(24, 34, 52, 0.8) 100%); border-color: rgba(0, 210, 255, 0.3);">
+        <div class="future-hero-title" style="color:var(--accent-cyan);">🧪 원소 연금술 결합 실험실</div>
+        <div class="future-hero-desc">
+          원소들을 비커에 넣고 화학 반응을 일으켜 물(H₂O), 소금(NaCl), 배터리, 다이아몬드 등 우리 주변의 신기한 물질을 직접 합성해보세요!
+        </div>
+      </div>
+
+      <div class="beaker-lab-container">
+        <!-- 비커 그래픽 스테이지 -->
+        <div class="beaker-stage">
+          <div id="beaker-graphic" class="beaker-graphic">
+            <div class="beaker-liquid"></div>
+            <div class="beaker-bubbles"></div>
+            <div style="font-size:2rem; line-height:1; position:relative; z-index:5;">🧪</div>
+          </div>
+          <div id="beaker-slots" class="beaker-slots-row">
+            <!-- 선택된 슬롯 3개 -->
+          </div>
+          <div class="beaker-action-row">
+            <button id="clear-beaker-btn" class="modal-nav-btn">비우기 🗑️</button>
+            <button id="craft-btn" class="fire-btn" style="background:linear-gradient(135deg, #00d2ff, #0072ff);">⚡ 화학 반응 시작!</button>
+          </div>
+        </div>
+
+        <!-- 합성 결과 박스 -->
+        <div id="craft-result-box" class="craft-result-card normal">
+          👉 아래 원소 팔레트에서 원소를 터치해 비커에 넣고 반응 버튼을 누르세요!
+        </div>
+
+        <!-- 원소 선택 팔레트 -->
+        <div class="palette-container">
+          <div class="palette-title">🎨 결합용 원소 선택 트레이</div>
+          <div id="molecule-palette" class="palette-grid">
+            <!-- JS에서 주요 반응 원소 버튼들 렌더링 -->
+          </div>
+        </div>
+
+        <!-- 발견한 화합물 컬렉션 도감 -->
+        <div class="collection-container">
+          <div class="collection-header">
+            <span style="font-size:1.15rem; font-weight:800; color:var(--accent-gold);">📜 발견한 화합물 도감</span>
+            <span id="discovered-mol-count" class="card-category-badge" style="background:#2ed573;">0 / 12개 발견</span>
+          </div>
+          <div id="molecule-collection-grid" class="molecule-grid">
+            <!-- JS 렌더링 -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. ⚔️ 원소 카드 스탯 배틀 -->
+    <section id="view-battle" class="view-section">
+      <div class="future-hero" style="background: linear-gradient(135deg, rgba(232, 67, 147, 0.15) 0%, rgba(24, 34, 52, 0.8) 100%); border-color: rgba(232, 67, 147, 0.3);">
+        <div class="future-hero-title" style="color:#ff6b81;">⚔️ 원소 카드 스탯 배틀 (Top Trumps)</div>
+        <div class="future-hero-desc">
+          녹는점, 밀도, 반응성, 희귀도! 승리할 것 같은 나의 원소 스탯을 골라 라이벌 AI 카드를 쓰러뜨려 보세요!
+        </div>
+      </div>
+
+      <div class="battle-stage-container">
+        <div class="battle-header-row">
+          <div id="battle-score-badge" class="quiz-score-badge">승리: 0승 | 연속: 0콤보</div>
+          <button id="battle-new-draw-btn" class="fire-btn" style="padding:8px 16px; font-size:0.9rem;">새 카드 뽑기 🎴</button>
+        </div>
+
+        <div id="battle-result-msg" class="battle-result-bar normal">
+          👉 승리할 것 같은 나의 스탯을 터치해 대결을 시작하세요!
+        </div>
+
+        <div class="battle-arena">
+          <div class="battle-side">
+            <div class="side-label">🔵 나의 원소 카드</div>
+            <div id="player-card-container"></div>
+          </div>
+          <div class="vs-divider">VS</div>
+          <div class="battle-side">
+            <div class="side-label">🔴 라이벌 원소 카드</div>
+            <div id="rival-card-container"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. 🚀 미래 연구소 -->
+    <section id="view-future" class="view-section">
+      <div class="future-hero">
+        <div class="future-hero-title">🚀 8주기 미래 원소 & 안정성의 섬 연구소</div>
+        <div class="future-hero-desc">
+          현재 인류가 공식 발견한 마지막 원소는 <b>118번 오가네손(Og)</b>입니다.<br>
+          하지만 전 세계 최고의 핵물리학자들은 지금도 거대 입자 가속기를 돌려 
+          <b>119번 우눈엔늄(Uue)</b>, <b>120번 우눈비늄(Ubn)</b>, 그리고 <b>'안정성의 섬'</b>을 찾고 있어요!
+        </div>
+      </div>
+
+      <div class="collider-container">
+        <div class="collider-title">⚡ 가상 입자 가속기 (Particle Collider Lab)</div>
+        <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:16px;">
+          이온 빔을 광속으로 가속해 무거운 표적에 충돌시켜 8주기 원소를 직접 합성해보세요!
+        </p>
+
+        <div class="collider-stage">
+          <div id="particle-proj" class="beam-particle particle-projectile">Ca-48</div>
+          <div style="font-size:1.5rem; color:var(--accent-cyan); font-weight:900;">💥 ➔ ⚡ ➔ 💥</div>
+          <div id="particle-target" class="beam-particle particle-target">Cf-249</div>
+        </div>
+
+        <div class="collider-controls">
+          <div class="selector-group">
+            <span style="font-size:0.9rem; font-weight:700;">발사체 빔:</span>
+            <select id="projectile-select" class="collider-select"></select>
+          </div>
+          <div style="font-size:1.4rem; color:var(--text-muted);">+</div>
+          <div class="selector-group">
+            <span style="font-size:0.9rem; font-weight:700;">표적 원자핵:</span>
+            <select id="target-select" class="collider-select"></select>
+          </div>
+          <button id="fire-collider-btn" class="fire-btn">⚡ 입자 빔 광속 발사!</button>
+        </div>
+
+        <div id="collision-result" class="collision-result-box"></div>
+      </div>
+
+      <h3 style="font-size:1.25rem; font-weight:800; color:var(--accent-gold); margin-bottom:16px;">
+        🌟 과학자들이 예측하는 8주기 가상 원소 도감
+      </h3>
+      <div id="future-elements-list" class="cards-grid"></div>
+    </section>
+
+    <!-- 6. 🎯 원소 퀴즈 -->
+    <section id="view-quiz" class="view-section">
+      <div class="quiz-container">
+        <div class="quiz-header">
+          <div>🎯 원소 마스터 도전 퀴즈</div>
+          <div id="quiz-score-badge" class="quiz-score-badge">점수: 0점 | 🐣 초보 관찰자</div>
+        </div>
+
+        <div id="quiz-question-box" class="quiz-question">
+          문제를 불러오는 중...
+        </div>
+
+        <div id="quiz-options-box" class="quiz-options"></div>
+        <div id="quiz-feedback-box" class="quiz-feedback"></div>
+
+        <div style="text-align:center; margin-top:16px;">
+          <button id="quiz-next-btn" class="fire-btn" style="display:none; margin:0 auto; padding:10px 24px; font-size:1rem;">
+            다음 문제 풀기 ➔
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. 🏆 나의 업적 도감 -->
+    <section id="view-achievements" class="view-section">
+      <div class="future-hero" style="background: linear-gradient(135deg, rgba(241, 196, 15, 0.15) 0%, rgba(24, 34, 52, 0.8) 100%); border-color: rgba(241, 196, 15, 0.3);">
+        <div class="future-hero-title">🏆 원소 탐험대 업적 명예의 전당</div>
+        <div class="future-hero-desc">
+          원소를 탐험하고, 화합물을 합성하고, 퀴즈를 맞히며 특별한 칭호와 배지를 모아보세요!
+        </div>
+      </div>
+
+      <div id="achievements-list-grid" class="achievements-grid">
+        <!-- JS 렌더링 -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 원소 상세 정보 모달 팝업 (보어 원자 모형 캔버스 탑재) -->
+  <div id="element-modal-overlay" class="modal-overlay">
+    <div id="detail-modal-box" class="detail-modal">
+      <div class="modal-header-hero">
+        <button id="modal-close-btn" class="modal-close-btn">✕</button>
+        
+        <div class="modal-hero-top">
+          <!-- 🌀 2D 전자 껍질 캔버스 모형 -->
+          <div class="atom-canvas-wrap">
+            <canvas id="atom-canvas" width="160" height="160"></canvas>
+            <div class="canvas-hint">보어 원자 모형 (전자 공전 중)</div>
+          </div>
+
+          <div class="modal-title-wrap">
+            <div class="modal-name-ko">
+              <span id="modal-elem-name-ko">수소</span>
+              <button id="speak-ko-btn" class="speak-btn" title="한글 발음 듣기">🔊 한국어</button>
+            </div>
+            <div class="modal-name-en">
+              <span id="modal-elem-name-en">Hydrogen</span>
+              <button id="speak-en-btn" class="speak-btn" title="영어 발음 듣기">🔊 English</button>
+            </div>
+            <div id="modal-elem-num" style="font-size:0.9rem; font-weight:800; color:var(--text-muted); margin-top:4px;">#1 H</div>
+          </div>
+        </div>
+
+        <div id="modal-badges" class="modal-badge-row"></div>
+      </div>
+
+      <div class="modal-body">
+        <div class="info-section-card" style="border-left: 4px solid var(--accent-cyan);">
+          <div class="section-label">📖 원소 한 줄 소개</div>
+          <div id="modal-summary-text" class="section-text" style="font-size:1.05rem; font-weight:700;"></div>
+        </div>
+
+        <div class="info-section-card">
+          <div class="section-label">💡 우리 주변과 일상 속 쓰임새</div>
+          <div id="modal-uses-text" class="section-text"></div>
+        </div>
+
+        <div class="info-section-card">
+          <div class="section-label">🔍 발견 이야기 & 이름의 유래</div>
+          <div id="modal-discovery-text" class="section-text"></div>
+        </div>
+
+        <div class="info-section-card fun-fact-card">
+          <div class="section-label">🤯 깜짝 놀라운 비밀! (과학 상식)</div>
+          <div id="modal-funfact-text" class="section-text"></div>
+        </div>
+
+        <!-- 🔤 1~4 신규 기능: 원소 기호의 비밀 -->
+        <div id="modal-secret-section" class="info-section-card symbol-secret-card">
+          <div class="section-label" style="color:var(--accent-gold);">🔤 원소 기호의 비밀! (왜 이 기호일까?)</div>
+          <div id="modal-secret-text" class="section-text" style="font-size:0.95rem; font-weight:600; line-height:1.55;"></div>
+        </div>
+
+        <!-- 🔥 1~4 신규 기능: 불꽃 반응 실험실 -->
+        <div id="modal-flame-section" class="info-section-card flame-test-card">
+          <div class="section-label" style="color:#ff6b81;">🔥 불꽃 반응 실험실 (Flame Test)</div>
+          <div id="modal-flame-content" class="flame-display-box"></div>
+        </div>
+
+        <!-- ⚠️ 1~4 신규 기능: 위험도 & 빌런 등급 게이지 -->
+        <div id="modal-hazard-section" class="info-section-card hazard-card">
+          <div class="section-label" style="color:#ffa502;">⚠️ 위험도 & 빌런 등급 분석 (Hazard Rating)</div>
+          <div id="modal-hazard-content" class="hazard-display-grid"></div>
+        </div>
+      </div>
+
+      <div class="modal-nav-row">
+        <button id="modal-prev-btn" class="modal-nav-btn">◀ 이전 원소</button>
+        <button id="modal-next-btn" class="modal-nav-btn">다음 원소 ▶</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 자바스크립트 모듈 로드 -->
+  <script src="js/elements-data.js"></script>
+  <script src="js/temperature-slider.js"></script>
+  <script src="js/atom-model.js"></script>
+  <script src="js/molecule-lab.js"></script>
+  <script src="js/card-battle.js"></script>
+  <script src="js/achievements.js"></script>
+  <script src="js/periodic-table.js"></script>
+  <script src="js/future-lab.js"></script>
+  <script src="js/quiz.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

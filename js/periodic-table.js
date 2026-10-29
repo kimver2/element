@@ -130,7 +130,8 @@
 
     allList.forEach(el => {
       const card = document.createElement('div');
-      card.className = `element-card cat-${el.category}`;
+      const rarity = el.rarity || 'COMMON';
+      card.className = `element-card cat-${el.category} holo-card rarity-${rarity.toLowerCase()}`;
       card.dataset.num = el.num;
       card.dataset.category = el.category;
       card.dataset.nameKo = el.nameKo;
@@ -139,8 +140,18 @@
 
       const catName = CATEGORY_NAMES[el.category] || el.category;
       const isFuture = el.num > 118;
+      const hasFlame = !!el.flameColor;
+      const hazard = el.hazard || { safety: 'SAFE', safetyLabel: '안전', safetyColor: '#2ed573' };
+
+      // 레어도 배지 라벨
+      let rarityBadge = '';
+      if (rarity === 'MYTHIC') rarityBadge = '<span class="rarity-badge mythic">🌟 MYTHIC</span>';
+      else if (rarity === 'LEGENDARY') rarityBadge = '<span class="rarity-badge legendary">💎 LEGENDARY</span>';
+      else if (rarity === 'RARE') rarityBadge = '<span class="rarity-badge rare">🔮 RARE</span>';
+      else rarityBadge = '<span class="rarity-badge common">⚪ COMMON</span>';
 
       card.innerHTML = `
+        <div class="card-shimmer-effect"></div>
         <div class="card-header">
           <div class="card-identity">
             <span class="card-num">#${el.num}</span>
@@ -150,14 +161,22 @@
               <div class="card-name-en">${el.nameEn}</div>
             </div>
           </div>
-          <span class="card-category-badge" style="background: var(--tile-color)">${catName}</span>
+          <div style="display:flex; flex-direction:column; align-items:flex-end; gap:4px;">
+            ${rarityBadge}
+            <span class="card-category-badge" style="background: var(--tile-color)">${catName}</span>
+          </div>
         </div>
         <div class="card-summary">${el.summary}</div>
+        
+        <!-- 기호의 비밀 한줄 힌트 -->
+        ${el.symbolSecret ? `<div class="card-symbol-hint">💡 <b>기호 유래:</b> ${el.symbolSecret}</div>` : ''}
+
         <div class="card-tags">
           <span class="card-tag">${el.period}주기 ${typeof el.group === 'number' ? el.group + '족' : el.group}</span>
           <span class="card-tag">질량: ${el.weight}</span>
-          ${el.isRadioactive ? '<span class="card-tag" style="color:#ff6b81">☢️ 방사성</span>' : ''}
-          ${isFuture ? '<span class="card-tag" style="color:var(--accent-gold)">🚀 미래 예측 원소</span>' : ''}
+          ${hasFlame ? `<span class="card-tag" style="border:1px solid ${el.flameColor.color}; color:${el.flameColor.color}">🔥 불꽃: ${el.flameColor.nameKo.split(' ')[0]}</span>` : ''}
+          <span class="card-tag" style="color:${hazard.safetyColor}; font-weight:700;">${hazard.safety === 'DANGER' ? '🔴 빌런(위험)' : hazard.safety === 'WARNING' ? '🟡 주의' : '🟢 안전'}</span>
+          ${isFuture ? '<span class="card-tag" style="color:var(--accent-gold)">🚀 8주기 가상</span>' : ''}
         </div>
       `;
 

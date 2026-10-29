@@ -102,6 +102,69 @@
     `;
     document.getElementById('modal-funfact-text').innerText = el.funFact || '놀라운 비밀을 연구 중이에요!';
 
+    // 🔤 1. 원소 기호의 비밀 바인딩
+    const secretBox = document.getElementById('modal-secret-text');
+    if (secretBox) {
+      secretBox.innerText = el.symbolSecret || '기호의 비밀 정보를 준비 중이에요!';
+    }
+
+    // 🔥 2. 불꽃 반응 실험실 바인딩
+    const flameContent = document.getElementById('modal-flame-content');
+    if (flameContent) {
+      if (el.flameColor) {
+        flameContent.innerHTML = `
+          <div class="flame-visual-wrap">
+            <div class="animated-flame" style="--flame-color:${el.flameColor.color};"></div>
+          </div>
+          <div class="flame-info-wrap">
+            <div class="flame-color-title" style="color:${el.flameColor.color}; font-size:1.1rem; font-weight:800;">
+              ${el.flameColor.nameKo}
+            </div>
+            <div style="font-size:0.85rem; color:var(--text-muted); margin-top:2px;">
+              영문 명칭: ${el.flameColor.nameEn}
+            </div>
+            <div style="font-size:0.88rem; color:var(--text-bright); margin-top:6px;">
+              불꽃놀이 화약에 <b>${el.nameKo}</b> 화합물을 넣으면 이 아름다운 불꽃색이 밤하늘을 수놓아요! 🎆
+            </div>
+          </div>
+        `;
+      } else {
+        flameContent.innerHTML = `
+          <div style="font-size:0.88rem; color:var(--text-muted); padding:8px 0;">
+            💡 이 원소는 고유의 뚜렷한 가시광선 불꽃 반응 색상을 나타내지 않습니다. (주로 알칼리/알칼리토 금속과 구리에서 관찰돼요)
+          </div>
+        `;
+      }
+    }
+
+    // ⚠️ 3. 위험도 & 빌런 등급 게이지 바인딩
+    const hazardContent = document.getElementById('modal-hazard-content');
+    if (hazardContent) {
+      const h = el.hazard || { toxicity: 1, reactivity: 2, radiation: 1, safety: 'SAFE', safetyLabel: '안전', safetyColor: '#2ed573' };
+      
+      function getStars(cnt) {
+        return '★'.repeat(cnt) + '☆'.repeat(5 - cnt);
+      }
+
+      hazardContent.innerHTML = `
+        <div class="hazard-stat-row">
+          <span class="h-name">☠️ 치사 독성 (Toxicity)</span>
+          <span class="h-stars" style="color:#ff6b81;">${getStars(h.toxicity)}</span>
+        </div>
+        <div class="hazard-stat-row">
+          <span class="h-name">💥 화학 반응성 (Reactivity)</span>
+          <span class="h-stars" style="color:#ffa502;">${getStars(h.reactivity)}</span>
+        </div>
+        <div class="hazard-stat-row">
+          <span class="h-name">☢️ 방사선 위험 (Radiation)</span>
+          <span class="h-stars" style="color:#e056fd;">${getStars(h.radiation)}</span>
+        </div>
+        <div class="hazard-badge-banner" style="border:1px solid ${h.safetyColor}; color:${h.safetyColor}; background:rgba(0,0,0,0.3);">
+          종합 안전도: <b>${h.safetyLabel}</b>
+        </div>
+      `;
+    }
+
     // 이전/다음 버튼 제어
     const prevBtn = document.getElementById('modal-prev-btn');
     const nextBtn = document.getElementById('modal-next-btn');

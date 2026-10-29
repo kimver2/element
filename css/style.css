@@ -960,3 +960,183 @@ body {
   .modal-body { padding: 12px; gap: 10px; }
   .info-section-card { padding: 10px 12px; }
 }
+
+/* ✨ 1~4 신규 기능: 홀로그램 레어도 & 쉬머 효과 */
+.holo-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease;
+}
+
+.card-shimmer-effect {
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  width: 300%;
+  height: 300%;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    transparent 40%,
+    rgba(255, 255, 255, 0.15) 50%,
+    transparent 60%,
+    transparent 100%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+  transform: rotate(25deg);
+}
+
+.holo-card:hover .card-shimmer-effect {
+  opacity: 1;
+  animation: holo-sweep 1s infinite;
+}
+
+@keyframes holo-sweep {
+  0% { transform: translateY(-40%) rotate(25deg); }
+  100% { transform: translateY(40%) rotate(25deg); }
+}
+
+/* 레어도 등급별 스타일 */
+.rarity-badge {
+  font-size: 0.68rem;
+  font-weight: 900;
+  padding: 2px 8px;
+  border-radius: 8px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.rarity-badge.mythic {
+  background: linear-gradient(90deg, #ff007f, #7928ca, #00d2ff);
+  color: #fff;
+  box-shadow: 0 0 10px rgba(121, 40, 202, 0.5);
+}
+.holo-card.rarity-mythic {
+  border: 1.5px solid #e056fd;
+  box-shadow: 0 0 16px rgba(224, 86, 253, 0.35);
+}
+
+.rarity-badge.legendary {
+  background: linear-gradient(90deg, #ffa502, #ff4757);
+  color: #fff;
+  box-shadow: 0 0 8px rgba(255, 165, 2, 0.5);
+}
+.holo-card.rarity-legendary {
+  border: 1.5px solid var(--accent-gold);
+  box-shadow: 0 0 12px rgba(255, 190, 59, 0.3);
+}
+
+.rarity-badge.rare {
+  background: rgba(0, 210, 255, 0.2);
+  border: 1px solid var(--accent-cyan);
+  color: var(--accent-cyan);
+}
+.holo-card.rarity-rare {
+  border: 1.5px solid rgba(0, 210, 255, 0.5);
+}
+
+.rarity-badge.common {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-muted);
+}
+
+.card-symbol-hint {
+  font-size: 0.8rem;
+  color: var(--accent-gold);
+  background: rgba(255, 190, 59, 0.08);
+  border-left: 3px solid var(--accent-gold);
+  padding: 6px 10px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+/* 🔤 원소 기호의 비밀 카드 */
+.symbol-secret-card {
+  background: linear-gradient(135deg, rgba(255, 190, 59, 0.12) 0%, rgba(24, 34, 52, 0.8) 100%);
+  border: 1px solid rgba(255, 190, 59, 0.3);
+}
+
+/* 🔥 불꽃 반응 시뮬레이션 */
+.flame-display-box {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 10px 0 4px;
+}
+
+.flame-visual-wrap {
+  width: 60px;
+  height: 70px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  position: relative;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 12px;
+  padding-bottom: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.animated-flame {
+  width: 28px;
+  height: 48px;
+  background: radial-gradient(circle at bottom, #ffffff 10%, var(--flame-color, #ff0055) 60%, transparent 90%);
+  border-radius: 50% 50% 20% 20% / 60% 60% 40% 40%;
+  box-shadow: 0 0 25px var(--flame-color, #ff0055);
+  animation: flameBurn 0.45s infinite alternate ease-in-out;
+  transform-origin: bottom center;
+}
+
+@keyframes flameBurn {
+  0% { transform: scale(0.95) scaleY(0.9) rotate(-3deg); }
+  50% { transform: scale(1.05) scaleY(1.1) rotate(2deg); }
+  100% { transform: scale(0.98) scaleY(1.02) rotate(-1deg); }
+}
+
+.flame-info-wrap {
+  flex-grow: 1;
+}
+
+/* ⚠️ 위험도 게이지 스타일 */
+.hazard-card {
+  border-color: rgba(255, 165, 2, 0.3);
+}
+
+.hazard-display-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.hazard-stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.88rem;
+  padding: 6px 10px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+}
+
+.h-name {
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.h-stars {
+  font-size: 1.05rem;
+  letter-spacing: 2px;
+  font-weight: 900;
+}
+
+.hazard-badge-banner {
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  text-align: center;
+  margin-top: 4px;
+}

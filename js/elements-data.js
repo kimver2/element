@@ -1,4 +1,4 @@
-// 118개 원소 전체 + 8주기 미래 가상 원소 데이터베이스 (스탯 및 전자껍질 포함)
+// 118개 원소 + 8주기 미래 원소 데이터베이스 (희귀도, 기호비밀, 불꽃반응, 위험도 포함)
 window.PERIODIC_DATA = {
   "standardElements": [
     {
@@ -22,7 +22,17 @@ window.PERIODIC_DATA = {
       "density": 8.99e-05,
       "shells": [
         1
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "수소의 기호 H는 그리스어로 '물을 만드는 것(Hydro + Genes)'에서 첫 글자를 땄어요!"
     },
     {
       "num": 2,
@@ -45,7 +55,17 @@ window.PERIODIC_DATA = {
       "density": 0.0001785,
       "shells": [
         2
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 1,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "헬륨의 기호 He는 그리스 태양의 신 '헬리오스(Helios)'의 이름에서 유래했어요."
     },
     {
       "num": 3,
@@ -69,7 +89,22 @@ window.PERIODIC_DATA = {
       "shells": [
         2,
         1
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 4,
+        "radiation": 1,
+        "safety": "WARNING",
+        "safetyLabel": "반응성 높음 (조심!)",
+        "safetyColor": "#ffa502"
+      },
+      "symbolSecret": "리튬의 기호 Li는 그리스어로 '돌(Lithos)'을 뜻해요. 광물 속에서 처음 찾았기 때문이에요.",
+      "flameColor": {
+        "color": "#ff1744",
+        "nameKo": "진홍색 (새빨간 불꽃)",
+        "nameEn": "Crimson Red"
+      }
     },
     {
       "num": 4,
@@ -93,7 +128,17 @@ window.PERIODIC_DATA = {
       "shells": [
         2,
         2
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 3,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Be은(는) Beryllium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 5,
@@ -117,7 +162,17 @@ window.PERIODIC_DATA = {
       "shells": [
         2,
         3
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 B은(는) Boron의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 6,
@@ -141,7 +196,17 @@ window.PERIODIC_DATA = {
       "shells": [
         2,
         4
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "탄소의 기호 C는 라틴어로 숯과 석탄을 뜻하는 '카르보(Carbo)'에서 유래했어요."
     },
     {
       "num": 7,
@@ -165,7 +230,17 @@ window.PERIODIC_DATA = {
       "shells": [
         2,
         5
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "질소의 기호 N은 초석(화약 원료)을 만드는 물질 '니트론(Nitron)'에서 유래했어요."
     },
     {
       "num": 8,
@@ -189,7 +264,17 @@ window.PERIODIC_DATA = {
       "shells": [
         2,
         6
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "산소의 기호 O는 그리스어로 산(Acid)을 만드는 것 '옥시스(Oxys)'에서 왔어요."
     },
     {
       "num": 9,
@@ -213,7 +298,17 @@ window.PERIODIC_DATA = {
       "shells": [
         2,
         7
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 3,
+        "reactivity": 5,
+        "radiation": 1,
+        "safety": "WARNING",
+        "safetyLabel": "반응성 높음 (조심!)",
+        "safetyColor": "#ffa502"
+      },
+      "symbolSecret": "플루오린의 기호 F는 잘 녹아 흐른다는 라틴어 '플루에레(Fluere)'에서 유래했어요."
     },
     {
       "num": 10,
@@ -237,7 +332,17 @@ window.PERIODIC_DATA = {
       "shells": [
         2,
         8
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 1,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Ne은(는) Neon의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 11,
@@ -262,7 +367,22 @@ window.PERIODIC_DATA = {
         2,
         8,
         1
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 4,
+        "radiation": 1,
+        "safety": "WARNING",
+        "safetyLabel": "반응성 높음 (조심!)",
+        "safetyColor": "#ffa502"
+      },
+      "symbolSecret": "왜 Sodium인데 기호가 Na일까요? 고대 이집트의 천연 탄산소다 '나트론(Natron)'에서 이름을 따왔기 때문이에요! 영어권은 소듐, 독일/한국은 나트륨이라 불러요.",
+      "flameColor": {
+        "color": "#ffd600",
+        "nameKo": "노란색 (눈부신 황금 불꽃)",
+        "nameEn": "Intense Yellow"
+      }
     },
     {
       "num": 12,
@@ -287,7 +407,17 @@ window.PERIODIC_DATA = {
         2,
         8,
         2
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 3,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Mg은(는) Magnesium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 13,
@@ -312,7 +442,17 @@ window.PERIODIC_DATA = {
         2,
         8,
         3
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Al은(는) Aluminium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 14,
@@ -337,7 +477,17 @@ window.PERIODIC_DATA = {
         2,
         8,
         4
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Si은(는) Silicon의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 15,
@@ -362,7 +512,17 @@ window.PERIODIC_DATA = {
         2,
         8,
         5
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 P은(는) Phosphorus의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 16,
@@ -387,7 +547,17 @@ window.PERIODIC_DATA = {
         2,
         8,
         6
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 S은(는) Sulfur의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 17,
@@ -412,7 +582,17 @@ window.PERIODIC_DATA = {
         2,
         8,
         7
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 3,
+        "reactivity": 4,
+        "radiation": 1,
+        "safety": "WARNING",
+        "safetyLabel": "반응성 높음 (조심!)",
+        "safetyColor": "#ffa502"
+      },
+      "symbolSecret": "기호 Cl은(는) Chlorine의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 18,
@@ -437,7 +617,17 @@ window.PERIODIC_DATA = {
         2,
         8,
         8
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 1,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Ar은(는) Argon의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 19,
@@ -463,7 +653,22 @@ window.PERIODIC_DATA = {
         8,
         8,
         1
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 4,
+        "radiation": 1,
+        "safety": "WARNING",
+        "safetyLabel": "반응성 높음 (조심!)",
+        "safetyColor": "#ffa502"
+      },
+      "symbolSecret": "왜 Potassium인데 기호가 K일까요? 식물의 재(Ash)를 뜻하는 아랍어 '알칼리(al-qaly)'에서 독일어 '칼륨(Kalium)'이 생겨 K가 되었답니다!",
+      "flameColor": {
+        "color": "#b388ff",
+        "nameKo": "보라색 (신비로운 연보라)",
+        "nameEn": "Lilac Purple"
+      }
     },
     {
       "num": 20,
@@ -489,7 +694,22 @@ window.PERIODIC_DATA = {
         8,
         8,
         2
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 3,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "칼슘의 기호 Ca는 라틴어로 석회석과 분필을 뜻하는 '칼크스(Calx)'에서 유래했어요.",
+      "flameColor": {
+        "color": "#ff6d00",
+        "nameKo": "주황색 (따뜻한 벽돌색)",
+        "nameEn": "Brick Orange"
+      }
     },
     {
       "num": 21,
@@ -515,7 +735,17 @@ window.PERIODIC_DATA = {
         8,
         9,
         2
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Sc은(는) Scandium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 22,
@@ -541,7 +771,17 @@ window.PERIODIC_DATA = {
         8,
         10,
         2
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Ti은(는) Titanium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 23,
@@ -567,7 +807,17 @@ window.PERIODIC_DATA = {
         8,
         11,
         2
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 V은(는) Vanadium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 24,
@@ -593,7 +843,17 @@ window.PERIODIC_DATA = {
         8,
         13,
         1
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Cr은(는) Chromium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 25,
@@ -619,7 +879,17 @@ window.PERIODIC_DATA = {
         8,
         13,
         2
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Mn은(는) Manganese의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 26,
@@ -645,7 +915,17 @@ window.PERIODIC_DATA = {
         8,
         14,
         2
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "왜 Iron인데 기호가 Fe일까요? 고대 로마인들이 철을 부르던 라틴어 '페룸(Ferrum - 단단한 쇠)'에서 기호 Fe가 탄생했어요!"
     },
     {
       "num": 27,
@@ -671,7 +951,17 @@ window.PERIODIC_DATA = {
         8,
         15,
         2
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Co은(는) Cobalt의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 28,
@@ -697,7 +987,17 @@ window.PERIODIC_DATA = {
         8,
         16,
         2
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Ni은(는) Nickel의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 29,
@@ -723,7 +1023,22 @@ window.PERIODIC_DATA = {
         8,
         18,
         1
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "왜 Copper인데 기호가 Cu일까요? 지중해의 아름다운 섬 '키프로스(Cyprus)'의 라틴어 이름 '쿠프룸(Cuprum)'에서 Cu가 유래했어요.",
+      "flameColor": {
+        "color": "#00e676",
+        "nameKo": "청록색 (에메랄드빛 불꽃)",
+        "nameEn": "Blue-Green"
+      }
     },
     {
       "num": 30,
@@ -749,7 +1064,17 @@ window.PERIODIC_DATA = {
         8,
         18,
         2
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Zn은(는) Zinc의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 31,
@@ -775,7 +1100,17 @@ window.PERIODIC_DATA = {
         8,
         18,
         3
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Ga은(는) Gallium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 32,
@@ -801,7 +1136,17 @@ window.PERIODIC_DATA = {
         8,
         18,
         4
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Ge은(는) Germanium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 33,
@@ -827,7 +1172,17 @@ window.PERIODIC_DATA = {
         8,
         18,
         5
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 5,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "기호 As은(는) Arsenic의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 34,
@@ -853,7 +1208,17 @@ window.PERIODIC_DATA = {
         8,
         18,
         6
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Se은(는) Selenium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 35,
@@ -879,7 +1244,17 @@ window.PERIODIC_DATA = {
         8,
         18,
         7
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 3,
+        "reactivity": 4,
+        "radiation": 1,
+        "safety": "WARNING",
+        "safetyLabel": "반응성 높음 (조심!)",
+        "safetyColor": "#ffa502"
+      },
+      "symbolSecret": "기호 Br은(는) Bromine의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 36,
@@ -905,7 +1280,17 @@ window.PERIODIC_DATA = {
         8,
         18,
         8
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 1,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Kr은(는) Krypton의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 37,
@@ -932,7 +1317,22 @@ window.PERIODIC_DATA = {
         18,
         8,
         1
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 5,
+        "radiation": 1,
+        "safety": "WARNING",
+        "safetyLabel": "반응성 높음 (조심!)",
+        "safetyColor": "#ffa502"
+      },
+      "symbolSecret": "기호 Rb은(는) Rubidium의 이름에서 정밀하게 선정되었어요.",
+      "flameColor": {
+        "color": "#ea80fc",
+        "nameKo": "붉은 보라색",
+        "nameEn": "Red-Violet"
+      }
     },
     {
       "num": 38,
@@ -959,7 +1359,22 @@ window.PERIODIC_DATA = {
         18,
         8,
         2
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 3,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Sr은(는) Strontium의 이름에서 정밀하게 선정되었어요.",
+      "flameColor": {
+        "color": "#ff0055",
+        "nameKo": "짙은 빨간색 (화려한 불꽃놀이 적색)",
+        "nameEn": "Deep Scarlet"
+      }
     },
     {
       "num": 39,
@@ -986,7 +1401,17 @@ window.PERIODIC_DATA = {
         18,
         9,
         2
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Y은(는) Yttrium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 40,
@@ -1013,7 +1438,17 @@ window.PERIODIC_DATA = {
         18,
         10,
         2
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Zr은(는) Zirconium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 41,
@@ -1040,7 +1475,17 @@ window.PERIODIC_DATA = {
         18,
         12,
         1
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Nb은(는) Niobium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 42,
@@ -1067,7 +1512,17 @@ window.PERIODIC_DATA = {
         18,
         13,
         1
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Mo은(는) Molybdenum의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 43,
@@ -1094,7 +1549,17 @@ window.PERIODIC_DATA = {
         18,
         13,
         2
-      ]
+      ],
+      "rarity": "LEGENDARY",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 4,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "기호 Tc은(는) Technetium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 44,
@@ -1121,7 +1586,17 @@ window.PERIODIC_DATA = {
         18,
         15,
         1
-      ]
+      ],
+      "rarity": "LEGENDARY",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Ru은(는) Ruthenium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 45,
@@ -1148,7 +1623,17 @@ window.PERIODIC_DATA = {
         18,
         16,
         1
-      ]
+      ],
+      "rarity": "LEGENDARY",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Rh은(는) Rhodium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 46,
@@ -1174,7 +1659,17 @@ window.PERIODIC_DATA = {
         8,
         18,
         18
-      ]
+      ],
+      "rarity": "LEGENDARY",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Pd은(는) Palladium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 47,
@@ -1201,7 +1696,17 @@ window.PERIODIC_DATA = {
         18,
         18,
         1
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "왜 Silver인데 기호가 Ag일까요? 라틴어로 '하얗게 빛나는 보석'을 뜻하는 '아르겐툼(Argentum)'에서 Ag가 왔어요. 아르헨티나 나라 이름도 은에서 왔답니다!"
     },
     {
       "num": 48,
@@ -1228,7 +1733,17 @@ window.PERIODIC_DATA = {
         18,
         18,
         2
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 4,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "WARNING",
+        "safetyLabel": "반응성 높음 (조심!)",
+        "safetyColor": "#ffa502"
+      },
+      "symbolSecret": "기호 Cd은(는) Cadmium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 49,
@@ -1255,7 +1770,17 @@ window.PERIODIC_DATA = {
         18,
         18,
         3
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 In은(는) Indium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 50,
@@ -1282,7 +1807,17 @@ window.PERIODIC_DATA = {
         18,
         18,
         4
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "왜 Tin인데 기호가 Sn일까요? 고대 라틴어로 주석을 뜻하는 '스탄눔(Stannum)'에서 Sn이 유래했어요."
     },
     {
       "num": 51,
@@ -1309,7 +1844,17 @@ window.PERIODIC_DATA = {
         18,
         18,
         5
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "왜 Antimony인데 기호가 Sb일까요? 클레오파트라의 눈화장 먹으로 쓰이던 라틴어 '스티비움(Stibium)'에서 Sb가 되었어요."
     },
     {
       "num": 52,
@@ -1336,7 +1881,17 @@ window.PERIODIC_DATA = {
         18,
         18,
         6
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Te은(는) Tellurium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 53,
@@ -1363,7 +1918,17 @@ window.PERIODIC_DATA = {
         18,
         18,
         7
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 4,
+        "radiation": 1,
+        "safety": "WARNING",
+        "safetyLabel": "반응성 높음 (조심!)",
+        "safetyColor": "#ffa502"
+      },
+      "symbolSecret": "기호 I은(는) Iodine의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 54,
@@ -1390,7 +1955,17 @@ window.PERIODIC_DATA = {
         18,
         18,
         8
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 1,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Xe은(는) Xenon의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 55,
@@ -1418,7 +1993,22 @@ window.PERIODIC_DATA = {
         18,
         8,
         1
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 5,
+        "radiation": 1,
+        "safety": "WARNING",
+        "safetyLabel": "반응성 높음 (조심!)",
+        "safetyColor": "#ffa502"
+      },
+      "symbolSecret": "기호 Cs은(는) Caesium의 이름에서 정밀하게 선정되었어요.",
+      "flameColor": {
+        "color": "#00e5ff",
+        "nameKo": "하늘색 (시원한 푸른 불꽃)",
+        "nameEn": "Sky Blue"
+      }
     },
     {
       "num": 56,
@@ -1446,7 +2036,22 @@ window.PERIODIC_DATA = {
         18,
         8,
         2
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 3,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Ba은(는) Barium의 이름에서 정밀하게 선정되었어요.",
+      "flameColor": {
+        "color": "#76ff03",
+        "nameKo": "황록색 (사과빛 연두 불꽃)",
+        "nameEn": "Apple Green"
+      }
     },
     {
       "num": 57,
@@ -1472,7 +2077,17 @@ window.PERIODIC_DATA = {
         8,
         18,
         29
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 La은(는) Lanthanum의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 58,
@@ -1498,7 +2113,17 @@ window.PERIODIC_DATA = {
         8,
         18,
         30
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Ce은(는) Cerium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 59,
@@ -1524,7 +2149,17 @@ window.PERIODIC_DATA = {
         8,
         18,
         31
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Pr은(는) Praseodymium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 60,
@@ -1550,7 +2185,17 @@ window.PERIODIC_DATA = {
         8,
         18,
         32
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Nd은(는) Neodymium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 61,
@@ -1577,7 +2222,17 @@ window.PERIODIC_DATA = {
         18,
         32,
         1
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 4,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "기호 Pm은(는) Promethium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 62,
@@ -1604,7 +2259,17 @@ window.PERIODIC_DATA = {
         18,
         32,
         2
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Sm은(는) Samarium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 63,
@@ -1631,7 +2296,17 @@ window.PERIODIC_DATA = {
         18,
         32,
         3
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Eu은(는) Europium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 64,
@@ -1658,7 +2333,17 @@ window.PERIODIC_DATA = {
         18,
         32,
         4
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Gd은(는) Gadolinium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 65,
@@ -1685,7 +2370,17 @@ window.PERIODIC_DATA = {
         18,
         32,
         5
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Tb은(는) Terbium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 66,
@@ -1712,7 +2407,17 @@ window.PERIODIC_DATA = {
         18,
         32,
         6
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Dy은(는) Dysprosium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 67,
@@ -1739,7 +2444,17 @@ window.PERIODIC_DATA = {
         18,
         32,
         7
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Ho은(는) Holmium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 68,
@@ -1766,7 +2481,17 @@ window.PERIODIC_DATA = {
         18,
         32,
         8
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Er은(는) Erbium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 69,
@@ -1793,7 +2518,17 @@ window.PERIODIC_DATA = {
         18,
         32,
         9
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Tm은(는) Thulium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 70,
@@ -1820,7 +2555,17 @@ window.PERIODIC_DATA = {
         18,
         32,
         10
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Yb은(는) Ytterbium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 71,
@@ -1847,7 +2592,17 @@ window.PERIODIC_DATA = {
         18,
         32,
         11
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Lu은(는) Lutetium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 72,
@@ -1874,7 +2629,17 @@ window.PERIODIC_DATA = {
         18,
         32,
         12
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Hf은(는) Hafnium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 73,
@@ -1901,7 +2666,17 @@ window.PERIODIC_DATA = {
         18,
         32,
         13
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Ta은(는) Tantalum의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 74,
@@ -1929,7 +2704,17 @@ window.PERIODIC_DATA = {
         32,
         12,
         2
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "왜 Tungsten인데 기호가 W일까요? 독일 광부들이 주석을 갉아먹는 괴물 돌이라며 붙인 '볼프람(Wolfram - 늑대의 침)'에서 기호 W가 탄생했어요!"
     },
     {
       "num": 75,
@@ -1956,7 +2741,17 @@ window.PERIODIC_DATA = {
         18,
         32,
         15
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Re은(는) Rhenium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 76,
@@ -1984,7 +2779,17 @@ window.PERIODIC_DATA = {
         32,
         14,
         2
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Os은(는) Osmium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 77,
@@ -2012,7 +2817,17 @@ window.PERIODIC_DATA = {
         32,
         15,
         2
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Ir은(는) Iridium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 78,
@@ -2040,7 +2855,17 @@ window.PERIODIC_DATA = {
         32,
         17,
         1
-      ]
+      ],
+      "rarity": "LEGENDARY",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Pt은(는) Platinum의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 79,
@@ -2068,7 +2893,17 @@ window.PERIODIC_DATA = {
         32,
         18,
         1
-      ]
+      ],
+      "rarity": "LEGENDARY",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "왜 Gold인데 기호가 Au일까요? 라틴어로 '눈부시게 빛나는 새벽빛'을 뜻하는 '아우룸(Aurum)'에서 가장 아름다운 기호 Au가 탄생했어요!"
     },
     {
       "num": 80,
@@ -2096,7 +2931,17 @@ window.PERIODIC_DATA = {
         32,
         18,
         2
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 4,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "WARNING",
+        "safetyLabel": "반응성 높음 (조심!)",
+        "safetyColor": "#ffa502"
+      },
+      "symbolSecret": "왜 Mercury인데 기호가 Hg일까요? 라틴어로 '물(Hydro)처럼 찰랑거리는 은(Argyros)'이란 뜻의 '히드라르기룸(Hydrargyrum)'에서 Hg가 왔어요!"
     },
     {
       "num": 81,
@@ -2123,7 +2968,17 @@ window.PERIODIC_DATA = {
         18,
         32,
         21
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 5,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "기호 Tl은(는) Thallium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 82,
@@ -2151,7 +3006,17 @@ window.PERIODIC_DATA = {
         32,
         18,
         4
-      ]
+      ],
+      "rarity": "COMMON",
+      "hazard": {
+        "toxicity": 4,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "WARNING",
+        "safetyLabel": "반응성 높음 (조심!)",
+        "safetyColor": "#ffa502"
+      },
+      "symbolSecret": "왜 Lead인데 기호가 Pb일까요? 고대 로마의 수도관 파이프를 납으로 만들어 라틴어 '플룸붐(Plumbum)'이라 불렀고, 여기서 배관공(Plumber)과 기호 Pb가 유래했어요!"
     },
     {
       "num": 83,
@@ -2179,7 +3044,17 @@ window.PERIODIC_DATA = {
         32,
         18,
         5
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 1,
+        "safety": "SAFE",
+        "safetyLabel": "안전하고 친근한 원소",
+        "safetyColor": "#2ed573"
+      },
+      "symbolSecret": "기호 Bi은(는) Bismuth의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 84,
@@ -2206,7 +3081,17 @@ window.PERIODIC_DATA = {
         18,
         32,
         24
-      ]
+      ],
+      "rarity": "LEGENDARY",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 4,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "기호 Po은(는) Polonium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 85,
@@ -2233,7 +3118,17 @@ window.PERIODIC_DATA = {
         18,
         32,
         25
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 4,
+        "radiation": 4,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "기호 At은(는) Astatine의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 86,
@@ -2260,7 +3155,17 @@ window.PERIODIC_DATA = {
         18,
         32,
         26
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 1,
+        "radiation": 4,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "기호 Rn은(는) Radon의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 87,
@@ -2287,7 +3192,17 @@ window.PERIODIC_DATA = {
         18,
         32,
         27
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 5,
+        "radiation": 4,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "기호 Fr은(는) Francium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 88,
@@ -2314,7 +3229,17 @@ window.PERIODIC_DATA = {
         18,
         32,
         28
-      ]
+      ],
+      "rarity": "LEGENDARY",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 3,
+        "radiation": 4,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "기호 Ra은(는) Radium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 89,
@@ -2341,7 +3266,17 @@ window.PERIODIC_DATA = {
         18,
         32,
         29
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 4,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "기호 Ac은(는) Actinium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 90,
@@ -2368,7 +3303,17 @@ window.PERIODIC_DATA = {
         18,
         32,
         30
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 4,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "기호 Th은(는) Thorium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 91,
@@ -2395,7 +3340,17 @@ window.PERIODIC_DATA = {
         18,
         32,
         31
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 4,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "기호 Pa은(는) Protactinium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 92,
@@ -2424,7 +3379,17 @@ window.PERIODIC_DATA = {
         21,
         9,
         2
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 5,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "우라늄의 기호 U는 당시 갓 발견된 미지의 푸른 행성 천왕성(Uranus)을 기념해 붙여졌어요."
     },
     {
       "num": 93,
@@ -2452,7 +3417,17 @@ window.PERIODIC_DATA = {
         32,
         32,
         1
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 5,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "기호 Np은(는) Neptunium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 94,
@@ -2481,7 +3456,17 @@ window.PERIODIC_DATA = {
         24,
         8,
         2
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 5,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "플루토늄의 기호 Pu는 태양계 끝 명왕성(Pluto)의 이름을 땄답니다."
     },
     {
       "num": 95,
@@ -2509,7 +3494,17 @@ window.PERIODIC_DATA = {
         32,
         32,
         3
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 5,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "기호 Am은(는) Americium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 96,
@@ -2537,7 +3532,17 @@ window.PERIODIC_DATA = {
         32,
         32,
         4
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 5,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "기호 Cm은(는) Curium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 97,
@@ -2565,7 +3570,17 @@ window.PERIODIC_DATA = {
         32,
         32,
         5
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 5,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "기호 Bk은(는) Berkelium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 98,
@@ -2594,7 +3609,17 @@ window.PERIODIC_DATA = {
         28,
         8,
         2
-      ]
+      ],
+      "rarity": "LEGENDARY",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 5,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "기호 Cf은(는) Californium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 99,
@@ -2622,7 +3647,17 @@ window.PERIODIC_DATA = {
         32,
         32,
         7
-      ]
+      ],
+      "rarity": "LEGENDARY",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 5,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "아인슈타이늄의 기호 Es는 상대성 이론의 천재 과학자 알베르트 아인슈타인의 이름을 헌정받았어요."
     },
     {
       "num": 100,
@@ -2650,7 +3685,17 @@ window.PERIODIC_DATA = {
         32,
         32,
         8
-      ]
+      ],
+      "rarity": "LEGENDARY",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 5,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "기호 Fm은(는) Fermium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 101,
@@ -2678,7 +3723,17 @@ window.PERIODIC_DATA = {
         32,
         32,
         9
-      ]
+      ],
+      "rarity": "LEGENDARY",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 5,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "멘델레븀의 기호 Md는 주기율표를 발명한 화학의 아버지 드미트리 멘델레예프의 이름이에요."
     },
     {
       "num": 102,
@@ -2706,7 +3761,17 @@ window.PERIODIC_DATA = {
         32,
         32,
         10
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 5,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "기호 No은(는) Nobelium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 103,
@@ -2734,7 +3799,17 @@ window.PERIODIC_DATA = {
         32,
         32,
         11
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 5,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "기호 Lr은(는) Lawrencium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 104,
@@ -2762,7 +3837,17 @@ window.PERIODIC_DATA = {
         32,
         32,
         12
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 5,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "기호 Rf은(는) Rutherfordium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 105,
@@ -2790,7 +3875,17 @@ window.PERIODIC_DATA = {
         32,
         32,
         13
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 5,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "기호 Db은(는) Dubnium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 106,
@@ -2818,7 +3913,17 @@ window.PERIODIC_DATA = {
         32,
         32,
         14
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 5,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "기호 Sg은(는) Seaborgium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 107,
@@ -2846,7 +3951,17 @@ window.PERIODIC_DATA = {
         32,
         32,
         15
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 5,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "기호 Bh은(는) Bohrium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 108,
@@ -2874,7 +3989,17 @@ window.PERIODIC_DATA = {
         32,
         32,
         16
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 5,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "기호 Hs은(는) Hassium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 109,
@@ -2902,7 +4027,17 @@ window.PERIODIC_DATA = {
         32,
         32,
         17
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 5,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "기호 Mt은(는) Meitnerium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 110,
@@ -2930,7 +4065,17 @@ window.PERIODIC_DATA = {
         32,
         32,
         18
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 5,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "기호 Ds은(는) Darmstadtium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 111,
@@ -2959,7 +4104,17 @@ window.PERIODIC_DATA = {
         32,
         18,
         1
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 5,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "기호 Rg은(는) Roentgenium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 112,
@@ -2988,7 +4143,17 @@ window.PERIODIC_DATA = {
         32,
         18,
         2
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 5,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "기호 Cn은(는) Copernicium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 113,
@@ -3017,7 +4182,17 @@ window.PERIODIC_DATA = {
         32,
         18,
         3
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 5,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "기호 Nh은(는) Nihonium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 114,
@@ -3046,7 +4221,17 @@ window.PERIODIC_DATA = {
         32,
         18,
         4
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 5,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "기호 Fl은(는) Flerovium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 115,
@@ -3075,7 +4260,17 @@ window.PERIODIC_DATA = {
         32,
         18,
         5
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 5,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "기호 Mc은(는) Moscovium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 116,
@@ -3104,7 +4299,17 @@ window.PERIODIC_DATA = {
         32,
         18,
         6
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 2,
+        "radiation": 5,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "기호 Lv은(는) Livermorium의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 117,
@@ -3133,7 +4338,17 @@ window.PERIODIC_DATA = {
         32,
         18,
         7
-      ]
+      ],
+      "rarity": "RARE",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 4,
+        "radiation": 5,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "기호 Ts은(는) Tennessine의 이름에서 정밀하게 선정되었어요."
     },
     {
       "num": 118,
@@ -3162,7 +4377,17 @@ window.PERIODIC_DATA = {
         32,
         18,
         8
-      ]
+      ],
+      "rarity": "MYTHIC",
+      "hazard": {
+        "toxicity": 1,
+        "reactivity": 1,
+        "radiation": 5,
+        "safety": "DANGER",
+        "safetyLabel": "위험 원소 (주의 필요!)",
+        "safetyColor": "#ff4757"
+      },
+      "symbolSecret": "오가네손의 기호 Og는 현존하는 세계 최고의 초중원소 연구 거장 유리 오가네시안 박사의 이름이에요!"
     }
   ],
   "futureElements": [
@@ -3193,7 +4418,17 @@ window.PERIODIC_DATA = {
         32,
         18,
         8
-      ]
+      ],
+      "rarity": "MYTHIC",
+      "hazard": {
+        "toxicity": 3,
+        "reactivity": 5,
+        "radiation": 5,
+        "safety": "DANGER",
+        "safetyLabel": "미지의 초에너지 원소",
+        "safetyColor": "#f1c40f"
+      },
+      "symbolSecret": "기호 Uue은 IUPAC의 3글자 체계적 가상 원소 명명법에서 유래했어요."
     },
     {
       "num": 120,
@@ -3222,7 +4457,17 @@ window.PERIODIC_DATA = {
         32,
         18,
         8
-      ]
+      ],
+      "rarity": "MYTHIC",
+      "hazard": {
+        "toxicity": 3,
+        "reactivity": 5,
+        "radiation": 5,
+        "safety": "DANGER",
+        "safetyLabel": "미지의 초에너지 원소",
+        "safetyColor": "#f1c40f"
+      },
+      "symbolSecret": "기호 Ubn은 IUPAC의 3글자 체계적 가상 원소 명명법에서 유래했어요."
     },
     {
       "num": 121,
@@ -3251,7 +4496,17 @@ window.PERIODIC_DATA = {
         32,
         18,
         8
-      ]
+      ],
+      "rarity": "MYTHIC",
+      "hazard": {
+        "toxicity": 3,
+        "reactivity": 5,
+        "radiation": 5,
+        "safety": "DANGER",
+        "safetyLabel": "미지의 초에너지 원소",
+        "safetyColor": "#f1c40f"
+      },
+      "symbolSecret": "기호 Ubu은 IUPAC의 3글자 체계적 가상 원소 명명법에서 유래했어요."
     },
     {
       "num": 122,
@@ -3280,7 +4535,17 @@ window.PERIODIC_DATA = {
         32,
         18,
         8
-      ]
+      ],
+      "rarity": "MYTHIC",
+      "hazard": {
+        "toxicity": 3,
+        "reactivity": 5,
+        "radiation": 5,
+        "safety": "DANGER",
+        "safetyLabel": "미지의 초에너지 원소",
+        "safetyColor": "#f1c40f"
+      },
+      "symbolSecret": "기호 Ubb은 IUPAC의 3글자 체계적 가상 원소 명명법에서 유래했어요."
     },
     {
       "num": 126,
@@ -3309,7 +4574,17 @@ window.PERIODIC_DATA = {
         32,
         18,
         8
-      ]
+      ],
+      "rarity": "MYTHIC",
+      "hazard": {
+        "toxicity": 3,
+        "reactivity": 5,
+        "radiation": 5,
+        "safety": "DANGER",
+        "safetyLabel": "미지의 초에너지 원소",
+        "safetyColor": "#f1c40f"
+      },
+      "symbolSecret": "기호 Ubh은 IUPAC의 3글자 체계적 가상 원소 명명법에서 유래했어요."
     }
   ]
 };
