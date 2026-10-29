@@ -754,10 +754,32 @@ body {
 .bstat-row {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 8px 12px;
   background: rgba(255, 255, 255, 0.05);
   border-radius: 8px;
   font-size: 0.88rem;
+  transition: all 0.2s;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.stat-rule {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+.affinity-tag {
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  animation: pulse-glow 1.5s infinite alternate;
+}
+.affinity-tag.advantage {
+  background: rgba(255, 190, 59, 0.18);
+  border: 1px solid var(--accent-gold);
+  color: var(--accent-gold);
+}
   transition: all 0.2s;
 }
 #player-card-container .bstat-row:hover {
