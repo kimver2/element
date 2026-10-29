@@ -46,6 +46,78 @@
     });
   }
 
+  // 발음 듣기 (Web Speech Synthesis API) - 또렷한 여성 음성 최적화
+  let cachedVoices = [];
+  function loadVoices() {
+    if ('speechSynthesis' in window) {
+      cachedVoices = window.speechSynthesis.getVoices();
+    }
+  }
+
+  if ('speechSynthesis' in window) {
+    loadVoices();
+    if (window.speechSynthesis.onvoiceschanged !== undefined) {
+      window.speechSynthesis.onvoiceschanged = loadVoices;
+    }
+  }
+
+  function findBestVoice(lang) {
+    if (!cachedVoices || cachedVoices.length === 0) {
+      loadVoices();
+    }
+    const voices = cachedVoices || [];
+    if (!voices.length) return null;
+
+    const isEn = lang.toLowerCase().startsWith('en');
+    const isKo = lang.toLowerCase().startsWith('ko');
+
+    if (isEn) {
+      const enVoices = voices.filter(v => v.lang && v.lang.toLowerCase().replace('_', '-').startsWith('en'));
+      if (!enVoices.length) return null;
+
+      // 1순위: 명시적 여성 고품질 영어 음성 (Samantha, Victoria, Karen, Jenny, Aria, Zira 등)
+      const preferredFemaleNames = [
+        'samantha', 'victoria', 'karen', 'jenny', 'aria', 'zira', 'ava',
+        'allison', 'serena', 'moira', 'fiona', 'tessa', 'susan', 'female'
+      ];
+      for (const name of preferredFemaleNames) {
+        const found = enVoices.find(v => v.name.toLowerCase().includes(name));
+        if (found) return found;
+      }
+
+      // 2순위: Google US English / Google English
+      const googleVoice = enVoices.find(v => {
+        const n = v.name.toLowerCase();
+        return n.includes('google') && (n.includes('us english') || n.includes('english'));
+      });
+      if (googleVoice) return googleVoice;
+
+      // 3순위: 남성 키워드가 없는 영어 음성
+      const maleKeywords = ['male', 'david', 'mark', 'george', 'alex', 'daniel', 'fred', 'bruce', 'tom', 'guy', 'james', 'john'];
+      const nonMale = enVoices.find(v => {
+        const n = v.name.toLowerCase();
+        return !maleKeywords.some(m => n.includes(m));
+      });
+      if (nonMale) return nonMale;
+
+      return enVoices[0];
+    }
+
+    if (isKo) {
+      const koVoices = voices.filter(v => v.lang && v.lang.toLowerCase().replace('_', '-').startsWith('ko'));
+      if (!koVoices.length) return null;
+
+      const preferredKoFemales = ['yuna', 'sora', 'sunhi', 'heami', 'female', 'google'];
+      for (const name of preferredKoFemales) {
+        const found = koVoices.find(v => v.name.toLowerCase().includes(name));
+        if (found) return found;
+      }
+      return koVoices[0];
+    }
+
+    return voices.find(v => v.lang && v.lang.toLowerCase().startsWith(lang.toLowerCase())) || null;
+  }
+
   // 발음 듣기 (Web Speech Synthesis API)
   function speakElement(text, lang = 'ko-KR') {
     if (!('speechSynthesis' in window)) {
@@ -55,7 +127,22 @@
     window.speechSynthesis.cancel();
     const utter = new SpeechSynthesisUtterance(text);
     utter.lang = lang;
-    utter.rate = 0.95;
+
+    const voice = findBestVoice(lang);
+    if (voice) {
+      utter.voice = voice;
+      if (voice.lang) utter.lang = voice.lang;
+    }
+
+    // 초등학생이 또렷하고 친근하게 들을 수 있도록 맑은 여성 톤 & 속도 세팅
+    if (lang.toLowerCase().startsWith('en')) {
+      utter.rate = 0.90;  // 영단어 발음이 뭉개지지 않는 또렷한 속도
+      utter.pitch = 1.08; // 맑고 또렷한 톤
+    } else {
+      utter.rate = 0.92;
+      utter.pitch = 1.05;
+    }
+
     window.speechSynthesis.speak(utter);
   }
 
