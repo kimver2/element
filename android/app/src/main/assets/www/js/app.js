@@ -32,6 +32,16 @@
             filterBar.style.display = 'none';
           }
         }
+
+        // 플로팅 줌 컨트롤은 주기율표 뷰에서만 표시
+        const floatingZoomBar = document.getElementById('floating-zoom-bar');
+        if (floatingZoomBar) {
+          if (targetViewId === 'view-table') {
+            floatingZoomBar.style.display = 'flex';
+          } else {
+            floatingZoomBar.style.display = 'none';
+          }
+        }
       });
     });
   }

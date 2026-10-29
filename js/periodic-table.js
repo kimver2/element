@@ -271,12 +271,90 @@
     });
   }
 
+  // ==========================================
+  // 🔍 주기율표 확대 / 축소 (Zoom) 컨트롤
+  // ==========================================
+  let currentZoom = 1.0;
+  const MIN_ZOOM = 0.32;
+  const MAX_ZOOM = 1.5;
+  const BASE_WIDTH = 1270;
+  const BASE_HEIGHT = 860;
+
+  function setTableZoom(level) {
+    currentZoom = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, level));
+    const grid = document.getElementById('periodic-grid');
+    const wrapper = document.getElementById('periodic-zoom-wrapper');
+    const zoomDisplays = document.querySelectorAll('.zoom-display-val');
+
+    if (grid) {
+      grid.style.transform = `scale(${currentZoom})`;
+      grid.style.transformOrigin = 'top left';
+      grid.style.transition = 'transform 0.22s cubic-bezier(0.2, 0, 0, 1)';
+    }
+
+    if (wrapper) {
+      wrapper.style.width = `${BASE_WIDTH * currentZoom}px`;
+      wrapper.style.height = `${BASE_HEIGHT * currentZoom}px`;
+      wrapper.style.transition = 'width 0.22s ease, height 0.22s ease';
+    }
+
+    const percentText = `${Math.round(currentZoom * 100)}%`;
+    zoomDisplays.forEach(el => {
+      el.innerText = percentText;
+    });
+  }
+
+  function fitTableToScreen() {
+    const scrollContainer = document.querySelector('.table-scroll-container');
+    if (!scrollContainer) return;
+    const availableWidth = scrollContainer.clientWidth - 16;
+    const targetZoom = Math.max(MIN_ZOOM, Math.min(1.0, availableWidth / BASE_WIDTH));
+    setTableZoom(targetZoom);
+  }
+
+  function initZoomControls() {
+    // 확대 (+)
+    document.querySelectorAll('.btn-zoom-in').forEach(btn => {
+      btn.addEventListener('click', () => setTableZoom(currentZoom + 0.1));
+    });
+
+    // 축소 (-)
+    document.querySelectorAll('.btn-zoom-out').forEach(btn => {
+      btn.addEventListener('click', () => setTableZoom(currentZoom - 0.1));
+    });
+
+    // 화면 맞춤 (Fit)
+    document.querySelectorAll('.btn-zoom-fit').forEach(btn => {
+      btn.addEventListener('click', fitTableToScreen);
+    });
+
+    // 100% 원본 크기
+    document.querySelectorAll('.btn-zoom-reset').forEach(btn => {
+      btn.addEventListener('click', () => setTableZoom(1.0));
+    });
+
+    // 스마트폰/태블릿(화면 폭 800px 이하)에서 접속 시 자동으로 화면 맞춤 축소
+    if (window.innerWidth <= 800) {
+      setTimeout(fitTableToScreen, 200);
+    }
+
+    // 모바일 기기 회전 시 자동 맞춤
+    window.addEventListener('resize', () => {
+      if (window.innerWidth <= 800 && currentZoom < 0.9) {
+        fitTableToScreen();
+      }
+    });
+  }
+
   // 초기화 노출
   window.initPeriodicTable = function() {
     renderPeriodicGrid();
     renderCardsGrid();
     initEvents();
+    initZoomControls();
   };
 
+  window.setTableZoom = setTableZoom;
+  window.fitTableToScreen = fitTableToScreen;
   window.CATEGORY_NAMES = CATEGORY_NAMES;
 })();

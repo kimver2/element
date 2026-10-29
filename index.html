@@ -9,8 +9,8 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <title>원소 탐험대 : 118 원소 & 미지의 세계</title>
-  <link rel="stylesheet" href="css/style.css?v=2.3.0">
-  <link rel="manifest" href="manifest.json?v=2.3.0">
+  <link rel="stylesheet" href="css/style.css?v=2.4.0">
+  <link rel="manifest" href="manifest.json?v=2.4.0">
 </head>
 <body>
 
@@ -96,10 +96,32 @@
         </div>
       </div>
 
-      <div class="table-scroll-container">
-        <div id="periodic-grid" class="periodic-table-grid">
-          <!-- JS에서 1~118번 원소 타일 자동 렌더링 -->
+      <!-- 🔍 주기율표 확대/축소(Zoom) 컨트롤 패널 -->
+      <div class="table-zoom-panel">
+        <div class="zoom-btn-group">
+          <button class="zoom-btn btn-zoom-out" title="주기율표 축소">➖ 축소</button>
+          <span class="zoom-display-val">100%</span>
+          <button class="zoom-btn btn-zoom-in" title="주기율표 확대">➕ 확대</button>
         </div>
+        <div class="zoom-preset-group">
+          <button class="zoom-btn btn-zoom-fit" title="화면 폭에 딱 맞추기">📱 화면 맞춤 (전체 보기)</button>
+          <button class="zoom-btn btn-zoom-reset" title="원래 크기">🔄 100%</button>
+        </div>
+      </div>
+
+      <div class="table-scroll-container">
+        <div id="periodic-zoom-wrapper" class="periodic-zoom-wrapper">
+          <div id="periodic-grid" class="periodic-table-grid">
+            <!-- JS에서 1~118번 원소 타일 자동 렌더링 -->
+          </div>
+        </div>
+      </div>
+
+      <!-- 📱 모바일 우측 하단 플로팅 줌 버튼 -->
+      <div id="floating-zoom-bar" class="floating-zoom-bar">
+        <button class="f-zoom-btn btn-zoom-in" title="확대">➕</button>
+        <button class="f-zoom-btn btn-zoom-out" title="축소">➖</button>
+        <button class="f-zoom-btn btn-zoom-fit" title="화면 맞춤">📱</button>
       </div>
     </section>
 
@@ -359,16 +381,16 @@
     </div>
   </div>
 
-  <!-- 자바스크립트 모듈 로드 (캐시 버스팅 적용 v2.3.0) -->
-  <script src="js/elements-data.js?v=2.3.0"></script>
-  <script src="js/temperature-slider.js?v=2.3.0"></script>
-  <script src="js/atom-model.js?v=2.3.0"></script>
-  <script src="js/molecule-lab.js?v=2.3.0"></script>
-  <script src="js/card-battle.js?v=2.3.0"></script>
-  <script src="js/achievements.js?v=2.3.0"></script>
-  <script src="js/periodic-table.js?v=2.3.0"></script>
-  <script src="js/future-lab.js?v=2.3.0"></script>
-  <script src="js/quiz.js?v=2.3.0"></script>
-  <script src="js/app.js?v=2.3.0"></script>
+  <!-- 자바스크립트 모듈 로드 (캐시 버스팅 적용 v2.4.0) -->
+  <script src="js/elements-data.js?v=2.4.0"></script>
+  <script src="js/temperature-slider.js?v=2.4.0"></script>
+  <script src="js/atom-model.js?v=2.4.0"></script>
+  <script src="js/molecule-lab.js?v=2.4.0"></script>
+  <script src="js/card-battle.js?v=2.4.0"></script>
+  <script src="js/achievements.js?v=2.4.0"></script>
+  <script src="js/periodic-table.js?v=2.4.0"></script>
+  <script src="js/future-lab.js?v=2.4.0"></script>
+  <script src="js/quiz.js?v=2.4.0"></script>
+  <script src="js/app.js?v=2.4.0"></script>
 </body>
 </html>
