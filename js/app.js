@@ -147,6 +147,34 @@
   }
 
   // 원소 상세 모달 열기
+  // 갤러리 탭 전환 함수
+  function initGalleryTabs() {
+    const tabBtns = document.querySelectorAll('.gallery-tab-btn');
+    const panels = {
+      'tab-illust': document.getElementById('gallery-panel-illust'),
+      'tab-photo': document.getElementById('gallery-panel-photo'),
+      'tab-atom': document.getElementById('gallery-panel-atom')
+    };
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.tab;
+        tabBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        Object.keys(panels).forEach(key => {
+          if (panels[key]) {
+            if (key === target) {
+              panels[key].classList.add('active');
+            } else {
+              panels[key].classList.remove('active');
+            }
+          }
+        });
+      });
+    });
+  }
+
   window.openElementModal = function(num) {
     if (!window.PERIODIC_DATA) return;
     const all = [...window.PERIODIC_DATA.standardElements, ...window.PERIODIC_DATA.futureElements];
@@ -168,44 +196,109 @@
     const colorVar = `var(--cat-${el.category}, #00d2ff)`;
     modalBox.style.setProperty('--modal-color', colorVar);
 
+    // 📖 1. 책 상단 헤더 & 페이지 번호
+    const totalCount = 118;
+    const isFuture = el.num > 118;
+    const pageBadge = document.getElementById('modal-page-num');
+    if (pageBadge) {
+      if (isFuture) {
+        pageBadge.innerText = `미래 특별부록 · ${el.nameKo} (#${el.num})`;
+      } else {
+        pageBadge.innerText = `제 ${el.num}장 · ${el.nameKo} (${el.num} / ${totalCount}쪽)`;
+      }
+    }
+
     // 모달 데이터 채우기
     document.getElementById('modal-elem-num').innerText = `#${el.num} ${el.symbol}`;
     document.getElementById('modal-elem-name-ko').innerText = el.nameKo;
     document.getElementById('modal-elem-name-en').innerText = el.nameEn;
     
+    // 🎨 2. 책 삽화 & 실물 사진 데이터 바인딩
+    const illus = el.illustration || {
+      icon: '🔬',
+      item: `${el.nameKo} 화합물 & 연구`,
+      itemDesc: el.summary,
+      caption: `사진: ${el.nameKo}`,
+      imgUrl: ''
+    };
+
+    const illustIcon = document.getElementById('modal-illust-icon');
+    const illustItem = document.getElementById('modal-illust-item');
+    const illustDesc = document.getElementById('modal-illust-desc');
+    if (illustIcon) illustIcon.innerText = illus.icon;
+    if (illustItem) illustItem.innerText = illus.item;
+    if (illustDesc) illustDesc.innerText = illus.itemDesc;
+
+    // 실물 사진 바인딩
+    const realPhotoImg = document.getElementById('modal-real-photo-img');
+    const photoFallbackBox = document.getElementById('photo-fallback-box');
+    const photoCaption = document.getElementById('modal-photo-caption');
+
+    if (photoCaption) {
+      photoCaption.innerText = illus.caption || `사진: ${el.nameKo} 원소 표본`;
+    }
+
+    if (realPhotoImg && photoFallbackBox) {
+      if (illus.imgUrl) {
+        realPhotoImg.style.display = 'block';
+        photoFallbackBox.style.display = 'none';
+        realPhotoImg.src = illus.imgUrl;
+      } else {
+        realPhotoImg.style.display = 'none';
+        photoFallbackBox.style.display = 'flex';
+      }
+    }
+
     // 🌀 2D 보어 원자 모형 캔버스 애니메이션 가동!
     if (window.renderAtomModel) {
       window.renderAtomModel(el.num, el.symbol, el.shells);
     }
 
+    // 📋 3. 원소 기본 제원 표 (책 속 팩트 시트)
+    const specGrid = document.getElementById('modal-spec-grid');
+    if (specGrid) {
+      const stateLabel = el.state === 'gas' ? '💨 기체' : el.state === 'liquid' ? '💧 액체' : '🪨 고체';
+      specGrid.innerHTML = `
+        <div class="spec-cell"><span class="spec-k">주기 / 족</span><span class="spec-v">${el.period}주기 ${typeof el.group === 'number' ? el.group + '족' : el.group}</span></div>
+        <div class="spec-cell"><span class="spec-k">원자량</span><span class="spec-v">${el.weight}</span></div>
+        <div class="spec-cell"><span class="spec-k">상온 상태</span><span class="spec-v">${stateLabel}</span></div>
+        <div class="spec-cell"><span class="spec-k">녹는점</span><span class="spec-v" style="color:var(--accent-gold);">${el.meltingPoint !== undefined ? el.meltingPoint + '℃' : '미정'}</span></div>
+        <div class="spec-cell"><span class="spec-k">끓는점</span><span class="spec-v">${el.boilingPoint !== undefined ? el.boilingPoint + '℃' : '미정'}</span></div>
+        <div class="spec-cell"><span class="spec-k">밀도</span><span class="spec-v">${el.density !== undefined ? el.density : '미정'}</span></div>
+      `;
+    }
+
     // 배지
     const badgeRow = document.getElementById('modal-badges');
-    const isFuture = el.num > 118;
     badgeRow.innerHTML = `
       <span class="modal-badge" style="background:${colorVar}; color:#fff;">${catName}</span>
       <span class="modal-badge" style="background:rgba(255,255,255,0.1); color:var(--text-main);">${el.period}주기 ${typeof el.group === 'number' ? el.group + '족' : el.group}</span>
-      <span class="modal-badge" style="background:rgba(255,255,255,0.1); color:var(--text-main);">원자량: ${el.weight}</span>
-      <span class="modal-badge" style="background:rgba(255,255,255,0.1); color:var(--accent-gold);">녹는점: ${el.meltingPoint !== undefined ? el.meltingPoint + '℃' : '미정'}</span>
-      ${el.isRadioactive ? '<span class="modal-badge" style="background:rgba(255, 71, 87, 0.25); color:#ff4757; border:1px solid #ff4757;">☢️ 방사성 원소</span>' : ''}
-      ${isFuture ? '<span class="modal-badge" style="background:rgba(241, 196, 15, 0.25); color:var(--accent-gold); border:1px solid var(--accent-gold);">🚀 8주기 미래 가상 원소</span>' : ''}
+      ${el.isRadioactive ? '<span class="modal-badge" style="background:rgba(255, 71, 87, 0.25); color:#ff4757; border:1px solid #ff4757;">☢️ 방사성</span>' : ''}
+      ${isFuture ? '<span class="modal-badge" style="background:rgba(241, 196, 15, 0.25); color:var(--accent-gold); border:1px solid var(--accent-gold);">🚀 8주기 미래 가상</span>' : ''}
     `;
 
-    // 텍스트 섹션
+    // 📖 4. 스토리텔링 텍스트 섹션 채우기
     document.getElementById('modal-summary-text').innerText = el.summary;
-    document.getElementById('modal-uses-text').innerText = el.uses || '정보 준비 중';
+    document.getElementById('modal-uses-text').innerHTML = `
+      <div class="story-highlight-box">
+        <span class="story-highlight-lead">📌 대표적인 물건:</span>
+        <b style="color:var(--accent-gold);">${illus.item}</b>
+      </div>
+      <p style="margin-top:8px; line-height:1.65;">${el.uses || illus.itemDesc}</p>
+    `;
     document.getElementById('modal-discovery-text').innerHTML = `
-      <b>발견 / 연구:</b> ${el.discovery || '기록 없음'}<br>
-      <b>어원 유래:</b> ${el.origin || '기록 없음'}
+      <p><b>🔬 발견 / 연구:</b> ${el.discovery || '기록 없음'}</p>
+      <p style="margin-top:6px;"><b>🌱 이름의 유래:</b> ${el.origin || '기록 없음'}</p>
     `;
     document.getElementById('modal-funfact-text').innerText = el.funFact || '놀라운 비밀을 연구 중이에요!';
 
-    // 🔤 1. 원소 기호의 비밀 바인딩
+    // 🔤 원소 기호의 비밀 바인딩
     const secretBox = document.getElementById('modal-secret-text');
     if (secretBox) {
       secretBox.innerText = el.symbolSecret || '기호의 비밀 정보를 준비 중이에요!';
     }
 
-    // 🔥 2. 불꽃 반응 실험실 바인딩
+    // 🔥 불꽃 반응 실험실 바인딩
     const flameContent = document.getElementById('modal-flame-content');
     if (flameContent) {
       if (el.flameColor) {
@@ -234,7 +327,7 @@
       }
     }
 
-    // ⚠️ 3. 위험도 & 빌런 등급 게이지 바인딩
+    // ⚠️ 위험도 & 빌런 등급 게이지 바인딩
     const hazardContent = document.getElementById('modal-hazard-content');
     if (hazardContent) {
       const h = el.hazard || { toxicity: 1, reactivity: 2, radiation: 1, safety: 'SAFE', safetyLabel: '안전', safetyColor: '#2ed573' };
@@ -266,7 +359,7 @@
     const prevBtn = document.getElementById('modal-prev-btn');
     const nextBtn = document.getElementById('modal-next-btn');
     if (prevBtn) prevBtn.disabled = (num <= 1);
-    if (nextBtn) nextBtn.disabled = (num >= 126);
+    if (nextBtn) nextBtn.disabled = (num >= 168);
 
     modalOverlay.classList.add('active');
   };
@@ -337,6 +430,7 @@
   document.addEventListener('DOMContentLoaded', () => {
     initTabs();
     initModalEvents();
+    initGalleryTabs();
 
     if (window.initPeriodicTable) window.initPeriodicTable();
     if (window.initTempSlider) window.initTempSlider();

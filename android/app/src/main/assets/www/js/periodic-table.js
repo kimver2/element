@@ -120,7 +120,7 @@
     gridContainer.appendChild(actLabel);
   }
 
-  // 도감 카드 뷰 렌더링
+  // 도감 카드 뷰 렌더링 (《나의 첫 주기율표 공부》 책 스타일)
   function renderCardsGrid() {
     const cardsContainer = document.getElementById('cards-grid');
     if (!cardsContainer || !window.PERIODIC_DATA) return;
@@ -131,7 +131,7 @@
     allList.forEach(el => {
       const card = document.createElement('div');
       const rarity = el.rarity || 'COMMON';
-      card.className = `element-card cat-${el.category} holo-card rarity-${rarity.toLowerCase()}`;
+      card.className = `element-card cat-${el.category} book-style-card rarity-${rarity.toLowerCase()}`;
       card.dataset.num = el.num;
       card.dataset.category = el.category;
       card.dataset.nameKo = el.nameKo;
@@ -142,6 +142,13 @@
       const isFuture = el.num > 118;
       const hasFlame = !!el.flameColor;
       const hazard = el.hazard || { safety: 'SAFE', safetyLabel: '안전', safetyColor: '#2ed573' };
+      const illus = el.illustration || {
+        icon: '🔬',
+        item: `${el.nameKo} 화합물 & 연구`,
+        itemDesc: el.summary,
+        caption: `사진: ${el.nameKo}`,
+        imgUrl: ''
+      };
 
       // 레어도 배지 라벨
       let rarityBadge = '';
@@ -152,31 +159,61 @@
 
       card.innerHTML = `
         <div class="card-shimmer-effect"></div>
-        <div class="card-header">
-          <div class="card-identity">
-            <span class="card-num">#${el.num}</span>
-            <span class="card-symbol">${el.symbol}</span>
-            <div class="card-names">
+        
+        <!-- 🎨 책 삽화 커버 영역 -->
+        <div class="card-book-cover">
+          <div class="card-cover-top">
+            <span class="card-num-emblem">#${el.num} ${el.symbol}</span>
+            <div style="display:flex; align-items:center; gap:4px;">
+              ${rarityBadge}
+            </div>
+          </div>
+
+          <div class="card-cover-art-stage">
+            <div class="card-art-circle">
+              <span class="card-art-icon">${illus.icon}</span>
+            </div>
+            ${illus.imgUrl ? `
+              <img class="card-photo-thumb" src="${illus.imgUrl}" alt="${el.nameKo} 실물 사진" loading="lazy" onerror="this.style.display='none'">
+            ` : ''}
+          </div>
+
+          <div class="card-cover-bottom">
+            <span class="card-item-tag">
+              <span class="item-icon">${illus.icon}</span>
+              <span class="item-text">${illus.item}</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- 📖 책 본문 텍스트 영역 -->
+        <div class="card-book-content">
+          <div class="card-header">
+            <div class="card-identity">
               <div class="card-name-ko">${el.nameKo}</div>
               <div class="card-name-en">${el.nameEn}</div>
             </div>
-          </div>
-          <div style="display:flex; flex-direction:column; align-items:flex-end; gap:4px;">
-            ${rarityBadge}
             <span class="card-category-badge" style="background: var(--tile-color)">${catName}</span>
           </div>
-        </div>
-        <div class="card-summary">${el.summary}</div>
-        
-        <!-- 기호의 비밀 한줄 힌트 -->
-        ${el.symbolSecret ? `<div class="card-symbol-hint">💡 <b>기호 유래:</b> ${el.symbolSecret}</div>` : ''}
 
-        <div class="card-tags">
-          <span class="card-tag">${el.period}주기 ${typeof el.group === 'number' ? el.group + '족' : el.group}</span>
-          <span class="card-tag">질량: ${el.weight}</span>
-          ${hasFlame ? `<span class="card-tag" style="border:1px solid ${el.flameColor.color}; color:${el.flameColor.color}">🔥 불꽃: ${el.flameColor.nameKo.split(' ')[0]}</span>` : ''}
-          <span class="card-tag" style="color:${hazard.safetyColor}; font-weight:700;">${hazard.safety === 'DANGER' ? '🔴 빌런(위험)' : hazard.safety === 'WARNING' ? '🟡 주의' : '🟢 안전'}</span>
-          ${isFuture ? '<span class="card-tag" style="color:var(--accent-gold)">🚀 8주기 가상</span>' : ''}
+          <div class="card-summary">“${el.summary}”</div>
+
+          <!-- 책 속 일상 쓰임새 한줄 하이라이트 -->
+          <div class="card-uses-highlight">
+            <span class="uses-lead">💡 쓰임새:</span>
+            <span class="uses-desc">${el.uses || illus.itemDesc}</span>
+          </div>
+
+          <!-- 기호의 비밀 한줄 힌트 (있는 경우) -->
+          ${el.symbolSecret ? `<div class="card-symbol-hint">🔤 <b>기호:</b> ${el.symbolSecret}</div>` : ''}
+
+          <div class="card-tags">
+            <span class="card-tag">${el.period}주기 ${typeof el.group === 'number' ? el.group + '족' : el.group}</span>
+            <span class="card-tag">질량: ${el.weight}</span>
+            ${hasFlame ? `<span class="card-tag" style="border:1px solid ${el.flameColor.color}; color:${el.flameColor.color}">🔥 불꽃: ${el.flameColor.nameKo.split(' ')[0]}</span>` : ''}
+            <span class="card-tag" style="color:${hazard.safetyColor}; font-weight:700;">${hazard.safety === 'DANGER' ? '🔴 빌런(위험)' : hazard.safety === 'WARNING' ? '🟡 주의' : '🟢 안전'}</span>
+            ${isFuture ? '<span class="card-tag" style="color:var(--accent-gold)">🚀 8주기 가상</span>' : ''}
+          </div>
         </div>
       `;
 
