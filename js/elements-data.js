@@ -2043,7 +2043,7 @@ window.PERIODIC_DATA = {
       "nameKo": "카드뮴",
       "nameEn": "Cadmium",
       "period": 5,
-      "group": 11,
+      "group": 12,
       "category": "transition-metal",
       "state": "solid",
       "weight": "112.41",
