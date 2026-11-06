@@ -119,12 +119,14 @@
   }
 
   // 발음 듣기 (Web Speech Synthesis API)
-  function speakElement(text, lang = 'ko-KR') {
+  function speakElement(text, lang = 'ko-KR', triggerBtn = null) {
     if (!('speechSynthesis' in window)) {
       alert('이 브라우저는 음성 발음을 지원하지 않습니다.');
       return;
     }
     window.speechSynthesis.cancel();
+    document.querySelectorAll('.speak-btn').forEach(b => b.classList.remove('playing'));
+
     const utter = new SpeechSynthesisUtterance(text);
     utter.lang = lang;
 
@@ -141,6 +143,12 @@
     } else {
       utter.rate = 0.92;
       utter.pitch = 1.05;
+    }
+
+    if (triggerBtn) {
+      utter.onstart = () => triggerBtn.classList.add('playing');
+      utter.onend = () => triggerBtn.classList.remove('playing');
+      utter.onerror = () => triggerBtn.classList.remove('playing');
     }
 
     window.speechSynthesis.speak(utter);
@@ -303,13 +311,13 @@
       `;
     }
 
-    // 배지
+    // 배지 (둥근 알약 버튼 형식)
     const badgeRow = document.getElementById('modal-badges');
     badgeRow.innerHTML = `
-      <span class="modal-badge" style="background:${colorVar}; color:#fff;">${catName}</span>
-      <span class="modal-badge" style="background:rgba(255,255,255,0.1); color:var(--text-main);">${el.period}주기 ${typeof el.group === 'number' ? el.group + '족' : el.group}</span>
-      ${el.isRadioactive ? '<span class="modal-badge" style="background:rgba(255, 71, 87, 0.25); color:#ff4757; border:1px solid #ff4757;">☢️ 방사성</span>' : ''}
-      ${isFuture ? '<span class="modal-badge" style="background:rgba(241, 196, 15, 0.25); color:var(--accent-gold); border:1px solid var(--accent-gold);">🚀 8주기 미래 가상</span>' : ''}
+      <span class="modal-badge modal-badge-category" style="background:${colorVar}; color:#fff;">${catName}</span>
+      <span class="modal-badge modal-badge-spec">${el.period}주기 · ${typeof el.group === 'number' ? el.group + '족' : el.group}</span>
+      ${el.isRadioactive ? '<span class="modal-badge modal-badge-radioactive">☢️ 방사성</span>' : ''}
+      ${isFuture ? '<span class="modal-badge modal-badge-future">🚀 8주기 미래 가상</span>' : ''}
     `;
 
     // 📖 4. 스토리텔링 텍스트 섹션 채우기
@@ -444,13 +452,13 @@
     if (speakKoBtn) {
       speakKoBtn.addEventListener('click', () => {
         const nameKo = document.getElementById('modal-elem-name-ko').innerText;
-        speakElement(nameKo, 'ko-KR');
+        speakElement(nameKo, 'ko-KR', speakKoBtn);
       });
     }
     if (speakEnBtn) {
       speakEnBtn.addEventListener('click', () => {
         const nameEn = document.getElementById('modal-elem-name-en').innerText;
-        speakElement(nameEn, 'en-US');
+        speakElement(nameEn, 'en-US', speakEnBtn);
       });
     }
 

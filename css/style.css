@@ -1135,24 +1135,90 @@ body {
   align-items: center;
   gap: 8px;
 }
+.speak-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 9999px; /* 완전 둥근 캡슐 버튼 */
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  color: #e2e8f0;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  user-select: none;
+}
+.speak-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+.speak-btn:active {
+  transform: translateY(0) scale(0.96);
+}
+.speak-btn-ko:hover {
+  border-color: rgba(0, 210, 255, 0.55);
+  box-shadow: 0 4px 14px rgba(0, 210, 255, 0.28);
+}
+.speak-btn-en:hover {
+  border-color: rgba(162, 155, 254, 0.55);
+  box-shadow: 0 4px 14px rgba(162, 155, 254, 0.28);
+}
+.speak-btn.playing {
+  background: linear-gradient(135deg, rgba(0, 210, 255, 0.28), rgba(162, 155, 254, 0.28));
+  border-color: var(--accent-cyan, #00d2d3);
+  color: #ffffff;
+  box-shadow: 0 0 16px rgba(0, 210, 255, 0.45);
+  animation: speakPulse 1.2s infinite ease-in-out;
+}
+@keyframes speakPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+.speak-btn-icon {
+  font-size: 0.92rem;
+  line-height: 1;
+  display: inline-block;
+  transition: transform 0.2s;
+}
+.speak-btn:hover .speak-btn-icon {
+  transform: scale(1.15);
+}
+.speak-btn-label {
+  font-weight: 700;
+  line-height: 1;
+}
 .modal-close-btn {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: var(--text-bright);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #cbd5e1;
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
+  font-weight: 700;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s;
+  transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
 }
 .modal-close-btn:hover {
-  background: rgba(255, 71, 87, 0.8);
+  background: rgba(255, 71, 87, 0.85);
+  border-color: rgba(255, 71, 87, 1);
   color: #fff;
-  transform: rotate(90deg);
+  transform: rotate(90deg) scale(1.06);
+  box-shadow: 0 4px 12px rgba(255, 71, 87, 0.4);
 }
 
 /* 📖 양면 책 본문 컨테이너 */
@@ -1415,6 +1481,55 @@ body {
   font-size: 1rem;
   font-weight: 700;
   color: var(--text-muted);
+}
+.modal-badge-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.modal-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 14px;
+  border-radius: 9999px; /* 완전 둥근 알약(Pill) 버튼 형식 */
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  line-height: 1.35;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+}
+.modal-badge:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+}
+.modal-badge-category {
+  font-weight: 800;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+.modal-badge-spec {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #e2e8f0;
+  font-weight: 600;
+}
+.modal-badge-radioactive {
+  background: rgba(255, 71, 87, 0.18);
+  border: 1px solid rgba(255, 71, 87, 0.55);
+  color: #ff6b81;
+  font-weight: 800;
+  box-shadow: 0 0 10px rgba(255, 71, 87, 0.25);
+}
+.modal-badge-future {
+  background: rgba(241, 196, 15, 0.18);
+  border: 1px solid rgba(241, 196, 15, 0.55);
+  color: var(--accent-gold, #f1c40f);
+  font-weight: 800;
+  box-shadow: 0 0 10px rgba(241, 196, 15, 0.25);
 }
 
 /* 스토리텔링 섹션 공통 */
