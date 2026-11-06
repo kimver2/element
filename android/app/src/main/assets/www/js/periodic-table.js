@@ -174,7 +174,7 @@
               <span class="card-art-icon">${illus.icon}</span>
             </div>
             ${illus.imgUrl ? `
-              <img class="card-photo-thumb" src="${illus.imgUrl}" alt="${el.nameKo} 실물 사진" loading="lazy" onerror="this.style.display='none'">
+              <img class="card-photo-thumb" src="${illus.imgUrl}" alt="${el.nameKo} 실물 사진" referrerpolicy="no-referrer" loading="lazy" onerror="this.style.display='none'">
             ` : ''}
           </div>
 

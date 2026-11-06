@@ -233,17 +233,52 @@
     const realPhotoImg = document.getElementById('modal-real-photo-img');
     const photoFallbackBox = document.getElementById('photo-fallback-box');
     const photoCaption = document.getElementById('modal-photo-caption');
+    const photoSpinner = document.getElementById('photo-loading-spinner');
 
     if (photoCaption) {
       photoCaption.innerText = illus.caption || `사진: ${el.nameKo} 원소 표본`;
     }
 
     if (realPhotoImg && photoFallbackBox) {
+      realPhotoImg.referrerPolicy = 'no-referrer';
+      realPhotoImg.classList.remove('loaded');
+
       if (illus.imgUrl) {
         realPhotoImg.style.display = 'block';
         photoFallbackBox.style.display = 'none';
+        if (photoSpinner) photoSpinner.style.display = 'flex';
+
+        let retryDone = false;
+        realPhotoImg.onload = () => {
+          if (photoSpinner) photoSpinner.style.display = 'none';
+          realPhotoImg.classList.add('loaded');
+        };
+
+        realPhotoImg.onerror = () => {
+          // 쿼리 파라미터가 있을 경우 1회 제거 후 재시도
+          if (!retryDone && realPhotoImg.src.includes('?')) {
+            retryDone = true;
+            realPhotoImg.src = realPhotoImg.src.split('?')[0];
+            return;
+          }
+
+          if (photoSpinner) photoSpinner.style.display = 'none';
+          realPhotoImg.style.display = 'none';
+          photoFallbackBox.style.display = 'flex';
+
+          const fallbackText = document.getElementById('photo-fallback-text');
+          if (fallbackText) {
+            if (el.num >= 100 || el.num === 87) {
+              fallbackText.innerHTML = `<strong>인공 합성 원소 (실물 표본 부재)</strong><br><span style="font-size:0.8rem;color:#94a3b8;">이 원소는 입자 가속기에서 찰나의 순간 동안만 생성되어 육안 관찰 표본이 존재하지 않습니다.</span>`;
+            } else {
+              fallbackText.innerHTML = `오프라인 상태이거나 사진을 불러올 수 없습니다.<br>🎨 '책 속 그림' 탭에서 생생한 삽화를 확인하세요!`;
+            }
+          }
+        };
+
         realPhotoImg.src = illus.imgUrl;
       } else {
+        if (photoSpinner) photoSpinner.style.display = 'none';
         realPhotoImg.style.display = 'none';
         photoFallbackBox.style.display = 'flex';
       }

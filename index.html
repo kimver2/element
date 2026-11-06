@@ -9,7 +9,7 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <title>원소 탐험대 : 118 원소 & 미지의 세계</title>
-  <link rel="stylesheet" href="css/style.css?v=2.6.0">
+  <link rel="stylesheet" href="css/style.css?v=2.7.0">
   <link rel="manifest" href="manifest.json?v=2.6.0">
 </head>
 <body>
@@ -351,14 +351,17 @@
           <!-- 2. 실물 사진 화면 -->
           <div id="gallery-panel-photo" class="gallery-panel">
             <div class="photo-stage">
-              <img id="modal-real-photo-img" class="modal-real-photo" src="" alt="원소 실물 사진" onerror="this.style.display='none'; document.getElementById('photo-fallback-box').style.display='flex';">
+              <div id="photo-loading-spinner" class="photo-loading-spinner" style="display:none;">
+                <div class="photo-spinner-ring"></div>
+              </div>
+              <img id="modal-real-photo-img" class="modal-real-photo" src="" alt="원소 실물 사진" referrerpolicy="no-referrer" loading="lazy">
               <div id="photo-fallback-box" class="photo-fallback-msg" style="display:none;">
                 <span style="font-size:2rem;">📷</span>
-                <span>오프라인 상태이거나 사진을 준비 중입니다.<br>🎨 '책 속 그림' 탭에서 생생한 삽화를 확인하세요!</span>
+                <span id="photo-fallback-text">오프라인 상태이거나 사진을 준비 중입니다.<br>🎨 '책 속 그림' 탭에서 생생한 삽화를 확인하세요!</span>
               </div>
             </div>
             <div class="photo-caption-box" id="modal-photo-caption">
-              사진: 수소 기체 방전관의 보랏빛 빛
+              사진: 원소 실물 표본
             </div>
           </div>
 
@@ -427,9 +430,9 @@
             <div id="modal-secret-text" class="book-section-body"></div>
           </div>
 
-          <!-- 5. 책 속 깜짝 놀라운 비밀! -->
+          <!-- 5. 깜짝 놀라운 비밀! -->
           <div class="book-story-section funfact-section">
-            <div class="book-section-title" style="color:#ff6b81;">🤯 4. 책 속 깜짝 놀라운 비밀! (Did You Know?)</div>
+            <div class="book-section-title" style="color:#ff6b81;">🤯 4. 깜짝 놀라운 비밀! (Did You Know?)</div>
             <div id="modal-funfact-text" class="book-section-body"></div>
           </div>
 
@@ -453,16 +456,16 @@
     </div>
   </div>
 
-  <!-- 자바스크립트 모듈 로드 (캐시 버스팅 적용 v2.6.1) -->
-  <script src="js/elements-data.js?v=2.6.1"></script>
-  <script src="js/temperature-slider.js?v=2.6.1"></script>
-  <script src="js/atom-model.js?v=2.6.1"></script>
-  <script src="js/molecule-lab.js?v=2.6.1"></script>
-  <script src="js/card-battle.js?v=2.6.1"></script>
-  <script src="js/achievements.js?v=2.6.1"></script>
-  <script src="js/periodic-table.js?v=2.6.1"></script>
-  <script src="js/future-lab.js?v=2.6.1"></script>
-  <script src="js/quiz.js?v=2.6.1"></script>
-  <script src="js/app.js?v=2.6.1"></script>
+  <!-- 자바스크립트 모듈 로드 (캐시 버스팅 적용 v2.7.0) -->
+  <script src="js/elements-data.js?v=2.7.0"></script>
+  <script src="js/temperature-slider.js?v=2.7.0"></script>
+  <script src="js/atom-model.js?v=2.7.0"></script>
+  <script src="js/molecule-lab.js?v=2.7.0"></script>
+  <script src="js/card-battle.js?v=2.7.0"></script>
+  <script src="js/achievements.js?v=2.7.0"></script>
+  <script src="js/periodic-table.js?v=2.7.0"></script>
+  <script src="js/future-lab.js?v=2.7.0"></script>
+  <script src="js/quiz.js?v=2.7.0"></script>
+  <script src="js/app.js?v=2.7.0"></script>
 </body>
 </html>
