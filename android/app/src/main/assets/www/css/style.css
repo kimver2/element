@@ -1665,7 +1665,8 @@ body {
     padding: 10px 14px;
   }
   .book-series-title {
-    display: none;
+    font-size: 0.9rem;
+    font-weight: 800;
   }
   .book-spread-container {
     grid-template-columns: 1fr;

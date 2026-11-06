@@ -210,9 +210,9 @@
     const pageBadge = document.getElementById('modal-page-num');
     if (pageBadge) {
       if (isFuture) {
-        pageBadge.innerText = `미래 특별부록 · ${el.nameKo} (#${el.num})`;
+        pageBadge.innerText = `${el.nameKo} (#${el.num})`;
       } else {
-        pageBadge.innerText = `제 ${el.num}장 · ${el.nameKo} (${el.num} / ${totalCount}쪽)`;
+        pageBadge.innerText = `${el.nameKo} (${el.num} / ${totalCount})`;
       }
     }
 
