@@ -33,7 +33,10 @@ class MainActivity : AppCompatActivity() {
         settings.allowFileAccess = true
         settings.allowContentAccess = true
         settings.useWideViewPort = true
-        settings.loadWithOverviewMode = true
+        settings.loadWithOverviewMode = false // PC 데스크톱 축소 방지 (모바일 1:1 반응형 뷰포트 유지)
+        settings.setSupportZoom(false)
+        settings.builtInZoomControls = false
+        settings.displayZoomControls = false
         settings.cacheMode = WebSettings.LOAD_DEFAULT
 
         webView.webViewClient = WebViewClient()

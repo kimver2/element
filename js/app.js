@@ -405,12 +405,26 @@
     if (nextBtn) nextBtn.disabled = (num >= 168);
 
     modalOverlay.classList.add('active');
+    document.body.classList.add('modal-open');
+
+    // 모달 열 때 스크롤 위치를 항상 맨 위로 초기화
+    const scrollBody = modalBox.querySelector('.book-spread-container');
+    if (scrollBody) scrollBody.scrollTop = 0;
+
+    // 모바일 뒤로가기 버튼 지원 (history state)
+    if (!history.state || !history.state.modalOpen) {
+      history.pushState({ modalOpen: true }, '');
+    }
   };
 
-  function closeModal() {
+  function closeModal(isPopState = false) {
     const modalOverlay = document.getElementById('element-modal-overlay');
     if (modalOverlay) {
       modalOverlay.classList.remove('active');
+      document.body.classList.remove('modal-open');
+      if (!isPopState && history.state && history.state.modalOpen) {
+        history.back();
+      }
     }
   }
 
@@ -422,12 +436,20 @@
     const speakKoBtn = document.getElementById('speak-ko-btn');
     const speakEnBtn = document.getElementById('speak-en-btn');
 
-    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (closeBtn) closeBtn.addEventListener('click', () => closeModal(false));
     if (modalOverlay) {
       modalOverlay.addEventListener('click', (e) => {
-        if (e.target === modalOverlay) closeModal();
+        if (e.target === modalOverlay) closeModal(false);
       });
     }
+
+    // 모바일 브라우저 및 안드로이드 시스템 뒤로가기 버튼 감지 시 모달 닫기
+    window.addEventListener('popstate', () => {
+      const modalOverlay = document.getElementById('element-modal-overlay');
+      if (modalOverlay && modalOverlay.classList.contains('active')) {
+        closeModal(true);
+      }
+    });
 
     if (prevBtn) {
       prevBtn.addEventListener('click', () => {
