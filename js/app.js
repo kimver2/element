@@ -3,47 +3,75 @@
 (function() {
   let currentModalElementNum = 1;
 
-  // 탭 전환 제어
+  // 탭 전환 제어 & 뒤로가기 연동
   function initTabs() {
     const tabButtons = document.querySelectorAll('.nav-tab-btn');
     const viewSections = document.querySelectorAll('.view-section');
     const filterBar = document.querySelector('.filter-bar');
 
-    tabButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const targetViewId = btn.dataset.view;
-
-        tabButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        viewSections.forEach(section => {
-          if (section.id === targetViewId) {
-            section.classList.add('active');
-          } else {
-            section.classList.remove('active');
-          }
-        });
-
-        // 주기율표/카드도감 뷰에서만 검색/필터바 표시 (나머지 탭에서는 숨겨 화면 확보)
-        if (filterBar) {
-          if (targetViewId === 'view-table' || targetViewId === 'view-cards') {
-            filterBar.style.display = 'flex';
-          } else {
-            filterBar.style.display = 'none';
-          }
-        }
-
-        // 플로팅 줌 컨트롤은 주기율표 뷰에서만 표시
-        const floatingZoomBar = document.getElementById('floating-zoom-bar');
-        if (floatingZoomBar) {
-          if (targetViewId === 'view-table') {
-            floatingZoomBar.style.display = 'flex';
-          } else {
-            floatingZoomBar.style.display = 'none';
-          }
+    function switchTab(targetViewId, updateHistory = true) {
+      tabButtons.forEach(b => {
+        if (b.dataset.view === targetViewId) {
+          b.classList.add('active');
+        } else {
+          b.classList.remove('active');
         }
       });
+
+      viewSections.forEach(section => {
+        if (section.id === targetViewId) {
+          section.classList.add('active');
+        } else {
+          section.classList.remove('active');
+        }
+      });
+
+      // 주기율표/카드도감 뷰에서만 검색/필터바 표시 (나머지 탭에서는 숨겨 화면 확보)
+      if (filterBar) {
+        if (targetViewId === 'view-table' || targetViewId === 'view-cards') {
+          filterBar.style.display = 'flex';
+        } else {
+          filterBar.style.display = 'none';
+        }
+      }
+
+      // 플로팅 줌 컨트롤은 주기율표 뷰에서만 표시
+      const floatingZoomBar = document.getElementById('floating-zoom-bar');
+      if (floatingZoomBar) {
+        if (targetViewId === 'view-table') {
+          floatingZoomBar.style.display = 'flex';
+        } else {
+          floatingZoomBar.style.display = 'none';
+        }
+      }
+
+      // 브라우저 뒤로가기 히스토리 관리: 메인이 아닌 서브탭에서 뒤로가기 시 항상 메인으로 복귀
+      if (updateHistory) {
+        if (targetViewId === 'view-table') {
+          if (location.hash && location.hash !== '#view-table') {
+            history.replaceState({ view: 'view-table' }, '', location.pathname + location.search);
+          }
+        } else {
+          // 메인에서 서브탭으로 이동 시 push, 서브탭 간 이동 시 replace하여 '뒤로' 누르면 항상 메인으로 복귀
+          if (!history.state || history.state.view === 'view-table') {
+            history.pushState({ view: targetViewId }, '', '#' + targetViewId);
+          } else {
+            history.replaceState({ view: targetViewId }, '', '#' + targetViewId);
+          }
+        }
+      }
+    }
+
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        switchTab(btn.dataset.view, true);
+      });
     });
+
+    window.switchTab = switchTab;
+
+    // 초기 메인 화면 상태 등록
+    history.replaceState({ view: 'view-table' }, '', location.pathname + location.search);
   }
 
   // 발음 듣기 (Web Speech Synthesis API) - 또렷한 여성 음성 최적화
@@ -411,15 +439,16 @@
     const scrollBody = modalBox.querySelector('.book-spread-container');
     if (scrollBody) scrollBody.scrollTop = 0;
 
-    // 모바일 뒤로가기 버튼 지원 (history state)
+    // 모달 열릴 때 뒤로가기 히스토리 등록 (뒤로가기 시 모달 닫힘 지원)
     if (!history.state || !history.state.modalOpen) {
-      history.pushState({ modalOpen: true }, '');
+      const currentView = (history.state && history.state.view) || 'view-table';
+      history.pushState({ view: currentView, modalOpen: true }, '', '#modal');
     }
   };
 
   function closeModal(isPopState = false) {
     const modalOverlay = document.getElementById('element-modal-overlay');
-    if (modalOverlay) {
+    if (modalOverlay && modalOverlay.classList.contains('active')) {
       modalOverlay.classList.remove('active');
       document.body.classList.remove('modal-open');
       if (!isPopState && history.state && history.state.modalOpen) {
@@ -427,6 +456,28 @@
       }
     }
   }
+
+  // 📱 안드로이드 앱 및 모바일 통합 뒤로가기 핸들러
+  window.handleAppBack = function() {
+    // 1. 모달이 열려 있다면 모달만 닫음
+    const modalOverlay = document.getElementById('element-modal-overlay');
+    if (modalOverlay && modalOverlay.classList.contains('active')) {
+      closeModal(true);
+      return true; // 뒤로가기 성공 처리
+    }
+
+    // 2. 현재 화면이 메인 페이지('view-table')가 아니라면 메인으로 이동
+    const activeSection = document.querySelector('.view-section.active');
+    if (activeSection && activeSection.id !== 'view-table') {
+      if (window.switchTab) {
+        window.switchTab('view-table', true);
+      }
+      return true; // 뒤로가기 성공 처리 (메인으로 이동)
+    }
+
+    // 3. 메인 화면인 경우 false 반환하여 앱 종료(또는 2회 터치 종료) 로직으로 위임
+    return false;
+  };
 
   function initModalEvents() {
     const modalOverlay = document.getElementById('element-modal-overlay');
@@ -443,11 +494,25 @@
       });
     }
 
-    // 모바일 브라우저 및 안드로이드 시스템 뒤로가기 버튼 감지 시 모달 닫기
-    window.addEventListener('popstate', () => {
+    // 모바일 브라우저 및 안드로이드 시스템 뒤로가기(popstate) 통합 처리
+    window.addEventListener('popstate', (e) => {
+      // 1. 모달이 열려있는 경우 모달 닫기
       const modalOverlay = document.getElementById('element-modal-overlay');
       if (modalOverlay && modalOverlay.classList.contains('active')) {
         closeModal(true);
+        return;
+      }
+
+      // 2. 서브화면에서 뒤로가기 시 메인으로 복귀
+      if (e.state && e.state.view) {
+        if (window.switchTab) {
+          window.switchTab(e.state.view, false);
+        }
+      } else {
+        // 히스토리 초기 진입점이면 항상 메인(view-table)으로 이동
+        if (window.switchTab) {
+          window.switchTab('view-table', false);
+        }
       }
     });
 
