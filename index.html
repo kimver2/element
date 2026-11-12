@@ -9,8 +9,14 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <title>원소 탐험대 : 118 원소 & 미지의 세계</title>
-  <link rel="stylesheet" href="css/style.css?v=2.8.1">
-  <link rel="manifest" href="manifest.json?v=2.8.1">
+  <link rel="stylesheet" href="css/style.css?v=2.8.2">
+  <link rel="manifest" href="manifest.json?v=2.8.2">
+  <!-- iOS Safari PWA 지원 메타 태그 -->
+  <link rel="apple-touch-icon" href="assets/icon-192.png">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="원소 탐험대">
 </head>
 <body>
 
@@ -25,14 +31,22 @@
         </div>
       </div>
 
-      <!-- 상단 도감 완성률 바 -->
-      <div class="explorer-progress-box">
-        <div class="progress-info-row">
-          <span id="explorer-progress-label">도감 완성률: 0 / 118 (0%)</span>
-          <span class="progress-trophy">🏆</span>
-        </div>
-        <div class="progress-track">
-          <div id="explorer-progress-fill" class="progress-fill" style="width: 0%;"></div>
+      <div class="header-right-meta">
+        <!-- 📲 PWA 원클릭 앱 설치 버튼 (모바일 브라우저 접속 시 노출) -->
+        <button id="pwa-install-btn" class="pwa-install-btn" title="스마트폰 홈 화면에 원소 탐험대 앱 설치">
+          <span class="pwa-btn-icon">📲</span>
+          <span class="pwa-btn-label">앱 설치</span>
+        </button>
+
+        <!-- 상단 도감 완성률 바 -->
+        <div class="explorer-progress-box">
+          <div class="progress-info-row">
+            <span id="explorer-progress-label">도감 완성률: 0 / 118 (0%)</span>
+            <span class="progress-trophy">🏆</span>
+          </div>
+          <div class="progress-track">
+            <div id="explorer-progress-fill" class="progress-fill" style="width: 0%;"></div>
+          </div>
         </div>
       </div>
 
@@ -462,16 +476,16 @@
     </div>
   </div>
 
-  <!-- 자바스크립트 모듈 로드 (캐시 버스팅 적용 v2.8.1) -->
-  <script src="js/elements-data.js?v=2.8.1"></script>
-  <script src="js/temperature-slider.js?v=2.8.1"></script>
-  <script src="js/atom-model.js?v=2.8.1"></script>
-  <script src="js/molecule-lab.js?v=2.8.1"></script>
-  <script src="js/card-battle.js?v=2.8.1"></script>
-  <script src="js/achievements.js?v=2.8.1"></script>
-  <script src="js/periodic-table.js?v=2.8.1"></script>
-  <script src="js/future-lab.js?v=2.8.1"></script>
-  <script src="js/quiz.js?v=2.8.1"></script>
-  <script src="js/app.js?v=2.8.1"></script>
+  <!-- 자바스크립트 모듈 로드 (캐시 버스팅 적용 v2.8.2) -->
+  <script src="js/elements-data.js?v=2.8.2"></script>
+  <script src="js/temperature-slider.js?v=2.8.2"></script>
+  <script src="js/atom-model.js?v=2.8.2"></script>
+  <script src="js/molecule-lab.js?v=2.8.2"></script>
+  <script src="js/card-battle.js?v=2.8.2"></script>
+  <script src="js/achievements.js?v=2.8.2"></script>
+  <script src="js/periodic-table.js?v=2.8.2"></script>
+  <script src="js/future-lab.js?v=2.8.2"></script>
+  <script src="js/quiz.js?v=2.8.2"></script>
+  <script src="js/app.js?v=2.8.2"></script>
 </body>
 </html>

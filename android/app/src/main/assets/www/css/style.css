@@ -118,6 +118,52 @@ body.modal-open {
   color: var(--text-muted);
 }
 
+.header-right-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* 📲 PWA 원클릭 앱 설치 버튼 */
+.pwa-install-btn {
+  display: none; /* JS에서 모바일 브라우저 / beforeinstallprompt 시 inline-flex 노출 */
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, rgba(0, 210, 255, 0.25), rgba(0, 114, 255, 0.35));
+  border: 1.5px solid var(--accent-cyan);
+  color: #ffffff;
+  padding: 7px 14px;
+  border-radius: 9999px;
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 0 14px rgba(0, 210, 255, 0.35);
+  user-select: none;
+  white-space: nowrap;
+}
+
+.pwa-install-btn:hover {
+  background: linear-gradient(135deg, rgba(0, 210, 255, 0.45), rgba(0, 114, 255, 0.6));
+  box-shadow: 0 0 20px rgba(0, 210, 255, 0.65);
+  transform: translateY(-1px) scale(1.02);
+}
+
+.pwa-install-btn:active {
+  transform: scale(0.96);
+}
+
+.pwa-btn-icon {
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.pwa-btn-label {
+  line-height: 1;
+}
+
 /* 상단 도감 진행도 바 */
 .explorer-progress-box {
   background: var(--bg-card);
@@ -1645,37 +1691,6 @@ body.modal-open {
   color: var(--text-muted);
 }
 
-/* 📱 반응형 모바일 (스마트폰 최적화) */
-@media (max-width: 768px) {
-  .app-header { padding: 8px 12px; }
-  .header-top { flex-direction: column; align-items: stretch; margin-bottom: 6px; gap: 8px; }
-  .app-title { font-size: 1.15rem; }
-  .app-subtitle { font-size: 0.72rem; }
-  .explorer-progress-box { min-width: unset; width: 100%; padding: 6px 10px; }
-  
-  .nav-tabs {
-    width: 100%;
-    display: flex;
-    overflow-x: auto;
-    padding: 3px;
-    gap: 4px;
-    scrollbar-width: thin;
-  }
-  .nav-tab-btn { padding: 6px 10px; font-size: 0.76rem; border-radius: 6px; }
-
-  .main-content { padding: 8px 8px 24px; }
-  .quiz-container { padding: 16px 12px; margin: 4px auto; }
-  .quiz-header { flex-direction: column; align-items: stretch; gap: 8px; text-align: center; }
-  .quiz-score-badge { display: block; width: 100%; text-align: center; }
-  .quiz-question { font-size: 1.08rem; }
-  .quiz-option-btn { padding: 12px 14px; font-size: 0.95rem; }
-
-  .battle-arena { flex-direction: column; }
-  .vs-divider { margin: 8px 0; }
-  .battle-side { width: 100%; max-width: 100%; }
-
-}
-
 /* 💻 태블릿 & 가로 모드 최적화 (992px 이하 1열 전환) */
 @media (max-width: 992px) {
   .detail-modal.book-modal {
@@ -1703,7 +1718,24 @@ body.modal-open {
   .header-top { flex-direction: column; align-items: stretch; margin-bottom: 6px; gap: 8px; }
   .app-title { font-size: 1.15rem; }
   .app-subtitle { font-size: 0.72rem; }
-  .explorer-progress-box { min-width: unset; width: 100%; padding: 6px 10px; }
+  
+  .header-right-meta {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .pwa-install-btn {
+    padding: 5px 12px;
+    font-size: 0.76rem;
+    flex-shrink: 0;
+  }
+  .explorer-progress-box {
+    flex-grow: 1;
+    min-width: unset;
+    padding: 6px 10px;
+  }
   
   .nav-tabs {
     width: 100%;

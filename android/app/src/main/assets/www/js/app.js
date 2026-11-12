@@ -557,10 +557,79 @@
     });
   }
 
+  // 📲 PWA Service Worker 등록 및 원클릭 설치 버튼 제어
+  function initPWA() {
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js?v=2.8.2')
+          .then((reg) => {
+            console.log('PWA ServiceWorker 등록 완료 (scope):', reg.scope);
+          })
+          .catch((err) => {
+            console.warn('PWA ServiceWorker 등록 실패:', err);
+          });
+      });
+    }
+
+    let deferredPrompt = null;
+    const installBtn = document.getElementById('pwa-install-btn');
+
+    // 이미 설치된 PWA 독립형(standalone) 실행 중인지 확인
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
+                         ('standalone' in window.navigator && window.navigator.standalone);
+
+    if (isStandalone) {
+      if (installBtn) installBtn.style.display = 'none';
+      return;
+    }
+
+    // 안드로이드 크롬/삼성인터넷 등 PWA 설치 가능 시점 감지
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      if (installBtn) {
+        installBtn.style.display = 'inline-flex';
+      }
+    });
+
+    if (installBtn) {
+      // 모바일 기기(iOS/안드로이드)인 경우 기본 노출하여 설치 가이드 제공
+      const isMobile = /android|iphone|ipad|ipod/i.test(navigator.userAgent);
+      if (isMobile) {
+        installBtn.style.display = 'inline-flex';
+      }
+
+      installBtn.addEventListener('click', async () => {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          if (outcome === 'accepted') {
+            installBtn.style.display = 'none';
+          }
+          deferredPrompt = null;
+        } else {
+          // iOS Safari 또는 프롬프트 이벤트가 지원되지 않는 경우 가이드 알림
+          const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
+          if (isIos) {
+            alert('💡 [아이폰 / 아이패드 앱 설치 방법]\n\n사파리(Safari) 하단 [공유] 버튼(사각형에 위쪽 화살표 ⎋)을 누른 후, [홈 화면에 추가]를 선택하시면 바탕화면에 전체화면 앱으로 설치됩니다!');
+          } else {
+            alert('💡 [안드로이드 / 모바일 앱 설치 방법]\n\n브라우저 우측 상단 메뉴(점 3개 ⋮)를 누른 후 [홈 화면에 추가] 또는 [앱 설치]를 선택하시면 바탕화면에 앱으로 설치됩니다!');
+          }
+        }
+      });
+    }
+
+    window.addEventListener('appinstalled', () => {
+      if (installBtn) installBtn.style.display = 'none';
+      console.log('원소 탐험대 PWA 앱 설치 완료');
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     initTabs();
     initModalEvents();
     initGalleryTabs();
+    initPWA();
 
     if (window.initPeriodicTable) window.initPeriodicTable();
     if (window.initTempSlider) window.initTempSlider();
