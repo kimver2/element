@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0e17">
+  <meta name="description" content="선충류, 흡충류, 조충류, 원충류, 외부기생충까지! 살아 움직이는 현미경과 생애주기 시뮬레이터로 배우는 기생충·선충 탐험대">
+  <title>기생충·선충 탐험대 : 미시 생물 학습 도감</title>
+  <link rel="stylesheet" href="css/parasite.css?v=3.0.0">
+  <link rel="manifest" href="manifest.json?v=3.0.0">
+  <link rel="apple-touch-icon" href="assets/icon-192.png">
+</head>
+<body>
+
+  <!-- 상단 헤더 -->
+  <header class="app-header">
+    <div class="header-top">
+      <div class="app-branding">
+        <div class="app-logo">🪱</div>
+        <div>
+          <h1 class="app-title">기생충·선충 탐험대 <span class="title-badge">42종 생물 도감</span></h1>
+          <p class="app-subtitle">선충류 · 흡충류 · 조충류 · 원충류 & 노벨상 모델 생물 탐험</p>
+        </div>
+      </div>
+
+      <div class="header-right-meta">
+        <a href="index.html" class="home-portal-btn" title="메인 허브로 돌아가기">
+          <span>🏠</span>
+          <span>메인으로</span>
+        </a>
+
+        <div class="explorer-progress-box">
+          <div class="progress-info-row">
+            <span id="p-explorer-progress-label">도감 완성률: 0 / 42 (0%)</span>
+            <span>🏆</span>
+          </div>
+          <div class="progress-track">
+            <div id="p-explorer-progress-fill" class="progress-fill" style="width: 0%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6대 학습 모드 탭 -->
+      <nav class="nav-tabs">
+        <button class="nav-tab-btn active" data-view="view-atlas">🧬 분류 도감</button>
+        <button class="nav-tab-btn" data-view="view-cards">🃏 카드 도감</button>
+        <button class="nav-tab-btn" data-view="view-lifecycle">🔄 생애주기 & 예방</button>
+        <button class="nav-tab-btn" data-view="view-microscope">🔬 가상 현미경</button>
+        <button class="nav-tab-btn" data-view="view-battle">⚔️ 카드 배틀</button>
+        <button class="nav-tab-btn" data-view="view-quiz">🎯 마스터 퀴즈</button>
+        <button class="nav-tab-btn" data-view="view-achievements">🏆 나의 업적</button>
+      </nav>
+    </div>
+
+    <!-- 검색 & 분류 필터 바 -->
+    <div class="filter-bar">
+      <div class="search-box-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="p-search-input" class="search-input" placeholder="이름(회충, 예쁜꼬마선충, 말라리아), 학명(Ascaris), 숙주, 감염 경로 검색...">
+      </div>
+
+      <div class="category-chips">
+        <button class="p-chip-btn active" data-cat="all">전체 42종</button>
+        <button class="p-chip-btn" data-cat="nematode"><span class="dot" style="background:#10b981"></span>선충류 (19)</button>
+        <button class="p-chip-btn" data-cat="trematode"><span class="dot" style="background:#38bdf8"></span>흡충류 (7)</button>
+        <button class="p-chip-btn" data-cat="cestode"><span class="dot" style="background:#f59e0b"></span>조충류 (6)</button>
+        <button class="p-chip-btn" data-cat="protozoa"><span class="dot" style="background:#a855f7"></span>원충류 (6)</button>
+        <button class="p-chip-btn" data-cat="ectoparasite"><span class="dot" style="background:#f43f5e"></span>외부기생충 (4)</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+
+    <!-- 1. 분류 도감 보드 -->
+    <section id="view-atlas" class="view-section active">
+      <div class="scale-control-panel">
+        <div class="scale-header">
+          <span>📏 크기 스케일 필터 (마이크로미터 µm ➔ 미터 m)</span>
+          <span style="font-size:0.8rem;color:var(--text-muted);">타일을 클릭하면 움직이는 현미경 관찰 & 상세 도감이 열립니다!</span>
+        </div>
+        <div class="scale-presets-row">
+          <button class="scale-preset-btn active" data-scale="all">🌐 전체 크기</button>
+          <button class="scale-preset-btn" data-scale="micro">🔬 초미시 (&lt; 100 µm · 원충)</button>
+          <button class="scale-preset-btn" data-scale="small">🔎 소형 (0.1 ~ 5 mm · 예쁜꼬마선충·요충·진드기)</button>
+          <button class="scale-preset-btn" data-scale="medium">📏 중형 (5 mm ~ 10 cm · 흡충·구충·고래회충)</button>
+          <button class="scale-preset-btn" data-scale="large">🎗️ 대형 (10 cm ~ 10 m · 회충·조충)</button>
+        </div>
+      </div>
+
+      <div id="parasite-atlas-groups"></div>
+    </section>
+
+    <!-- 2. 카드 도감 -->
+    <section id="view-cards" class="view-section">
+      <div id="parasite-cards-grid" class="cards-grid"></div>
+    </section>
+
+    <!-- 3. 생애주기 & 예방 차단 시뮬레이터 -->
+    <section id="view-lifecycle" class="view-section">
+      <div class="lab-panel">
+        <div class="lab-panel-head">
+          <div>
+            <h2>🔄 생애주기(생활사) 시뮬레이터</h2>
+            <p style="font-size:0.85rem;color:var(--text-muted);">기생충과 선충이 어떤 숙주를 거쳐 자라고 전파되는지 단계별로 살펴보세요.</p>
+          </div>
+          <select id="lc-species-select" class="lab-select"></select>
+        </div>
+        <div id="lc-species-summary" class="lc-species-summary"></div>
+        <div id="lc-flow-container" class="lc-flow-container"></div>
+      </div>
+
+      <div class="lab-panel">
+        <div class="lab-panel-head">
+          <div>
+            <h2>🛡️ 예방 수칙 차단 시뮬레이터</h2>
+            <p style="font-size:0.85rem;color:var(--text-muted);">생활 속 위생·예방 행동을 켜서(ON) 어떤 기생충의 감염 고리를 끊을 수 있는지 실험해 보세요!</p>
+          </div>
+          <span id="prevention-blocked-counter" style="font-weight:800;color:#6ee7b7;">차단 성공: 0종</span>
+        </div>
+        <div id="prevention-actions-grid" class="prevention-actions-grid"></div>
+        <div id="prevention-result-grid" class="prevention-result-grid"></div>
+      </div>
+    </section>
+
+    <!-- 4. 가상 현미경 관찰 & 감별 랩 -->
+    <section id="view-microscope" class="view-section">
+      <div class="lab-panel">
+        <div class="lab-panel-head">
+          <div>
+            <h2>🔬 가상 현미경 관찰 & 표본 감별 랩</h2>
+            <p style="font-size:0.85rem;color:var(--text-muted);">배율과 초점(50), 염색 조명을 조절해 표본 속 생물을 선명하게 관찰하고 이름을 맞혀보세요!</p>
+          </div>
+        </div>
+
+        <div id="micro-slide-tabs" class="micro-slide-tabs"></div>
+
+        <div class="micro-workspace">
+          <div class="micro-viewport-wrap">
+            <canvas id="microscope-canvas" width="320" height="320"></canvas>
+            <div id="micro-focus-status" style="font-size:0.85rem;font-weight:800;"></div>
+          </div>
+
+          <div class="micro-controls-col">
+            <div class="micro-control-group">
+              <h4>🔭 대물렌즈 배율 조절</h4>
+              <div class="micro-btn-row">
+                <button class="micro-zoom-btn" data-zoom="40">40x (저배율)</button>
+                <button class="micro-zoom-btn active" data-zoom="100">100x (중배율)</button>
+                <button class="micro-zoom-btn" data-zoom="400">400x (고배율)</button>
+                <button class="micro-zoom-btn" data-zoom="1000">1000x (유침)</button>
+              </div>
+            </div>
+
+            <div class="micro-control-group">
+              <h4>🎚️ 미동 나사 (초점 조절)</h4>
+              <input type="range" id="micro-focus-slider" min="0" max="100" value="25" style="width:100%;">
+            </div>
+
+            <div class="micro-control-group">
+              <h4>🎨 조명 & 염색 필터</h4>
+              <div class="micro-btn-row">
+                <button class="micro-stain-btn active" data-stain="brightfield">☀️ 명시야</button>
+                <button class="micro-stain-btn" data-stain="darkfield">🌑 암시야</button>
+                <button class="micro-stain-btn" data-stain="giemsa">🟣 김자(Giemsa) 염색</button>
+                <button class="micro-stain-btn" data-stain="fluorescence">🟢 GFP 형광</button>
+              </div>
+            </div>
+
+            <div id="micro-clue-text" class="micro-clue-box"></div>
+
+            <div class="micro-control-group">
+              <h4>🧪 이 표본의 정체는 무엇일까요?</h4>
+              <div id="micro-guess-options" class="micro-guess-options"></div>
+              <div id="micro-guess-feedback"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. 생존 스탯 카드 배틀 -->
+    <section id="view-battle" class="view-section">
+      <div class="battle-scoreboard">
+        <div class="battle-scores">
+          <span>🏆 승리: <b id="battle-wins">0</b></span>
+          <span>💥 패배: <b id="battle-losses">0</b></span>
+          <span>🔥 콤보: <b id="battle-combo">0</b></span>
+        </div>
+        <button id="battle-next-btn" class="lc-step-btn">🃏 새 카드 뽑기</button>
+      </div>
+
+      <div class="battle-arena">
+        <div id="battle-player-card" class="battle-card-slot"></div>
+        <div class="battle-vs">VS</div>
+        <div id="battle-ai-card" class="battle-card-slot"></div>
+      </div>
+
+      <div id="battle-result-msg" class="battle-result-msg"></div>
+    </section>
+
+    <!-- 6. 마스터 퀴즈 -->
+    <section id="view-quiz" class="view-section">
+      <div id="p-quiz-box" class="quiz-container-card"></div>
+    </section>
+
+    <!-- 7. 나의 업적 -->
+    <section id="view-achievements" class="view-section">
+      <div id="p-achievements-grid" class="achievements-grid"></div>
+    </section>
+  </main>
+
+  <!-- 상세 도감 모달 -->
+  <div id="parasite-detail-modal" class="p-modal-overlay" role="dialog" aria-modal="true">
+    <div class="p-modal-dialog">
+      <div class="p-modal-header">
+        <div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+            <span id="modal-p-num" style="font-size:0.82rem;color:var(--text-muted);font-weight:800;"></span>
+            <span id="modal-p-cat" style="font-size:0.76rem;padding:2px 9px;border-radius:999px;font-weight:800;"></span>
+          </div>
+          <h2 id="modal-p-name" style="font-size:1.5rem;font-weight:900;"></h2>
+          <p id="modal-p-sci" style="font-size:0.88rem;color:var(--text-muted);font-style:italic;"></p>
+        </div>
+        <button id="modal-p-close" class="p-modal-close" title="닫기">✕</button>
+      </div>
+
+      <div class="p-modal-body">
+        <div class="p-modal-canvas-box">
+          <canvas id="modal-parasite-canvas" width="280" height="240"></canvas>
+          <div class="micro-btn-row">
+            <button class="modal-stain-btn active" data-stain="brightfield">☀️ 일반</button>
+            <button class="modal-stain-btn" data-stain="giemsa">🟣 염색</button>
+            <button class="modal-stain-btn" data-stain="fluorescence">🟢 형광</button>
+          </div>
+          <div class="micro-btn-row">
+            <button id="modal-p-speak-ko" class="modal-nav-btn">🔊 한국어 듣기</button>
+            <button id="modal-p-speak-en" class="modal-nav-btn">🔊 학명 듣기</button>
+          </div>
+        </div>
+
+        <div>
+          <div class="p-modal-info-grid">
+            <div class="p-info-item"><label>📏 크기</label><span id="modal-p-size"></span></div>
+            <div class="p-info-item"><label>🏠 주요 숙주</label><span id="modal-p-host"></span></div>
+            <div class="p-info-item"><label>🔗 중간숙주/매개체</label><span id="modal-p-inter"></span></div>
+            <div class="p-info-item"><label>📍 서식 부위</label><span id="modal-p-habitat"></span></div>
+            <div class="p-info-item full"><label>🚪 감염 경로</label><span id="modal-p-trans"></span></div>
+            <div class="p-info-item full"><label>🔬 형태적 특징</label><span id="modal-p-morph"></span></div>
+            <div class="p-info-item full"><label>🩺 주요 증상</label><span id="modal-p-symptoms"></span></div>
+            <div class="p-info-item full"><label>🛡️ 예방법</label><span id="modal-p-prevention"></span></div>
+            <div class="p-info-item full"><label>💡 흥미로운 사실 (TMI)</label><span id="modal-p-fact"></span></div>
+            <div class="p-info-item full">
+              <label>🔄 생애주기 요약</label>
+              <ul id="modal-p-lifecycle" class="p-lifecycle-list"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-modal-footer">
+        <button id="modal-p-prev" class="modal-nav-btn">← 이전 생물</button>
+        <button id="modal-p-next" class="modal-nav-btn">다음 생물 →</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/parasite-data.js?v=3.0.0"></script>
+  <script src="js/parasite-canvas.js?v=3.0.0"></script>
+  <script src="js/parasite-achievements.js?v=3.0.0"></script>
+  <script src="js/parasite-atlas.js?v=3.0.0"></script>
+  <script src="js/parasite-lifecycle.js?v=3.0.0"></script>
+  <script src="js/parasite-microscope.js?v=3.0.0"></script>
+  <script src="js/parasite-battle.js?v=3.0.0"></script>
+  <script src="js/parasite-quiz.js?v=3.0.0"></script>
+  <script src="js/parasite-app.js?v=3.0.0"></script>
+</body>
+</html>
